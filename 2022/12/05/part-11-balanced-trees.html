@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Part 11 Balanced Trees | csc130csus.ivanbautista.dev</title>
+<meta name="generator" content="Jekyll v4.3.1" />
+<meta property="og:title" content="Part 11 Balanced Trees" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Part 11: Balanced Trees" />
+<meta property="og:description" content="Part 11: Balanced Trees" />
+<link rel="canonical" href="http://localhost:4000/2022/12/05/part-11-balanced-trees.html" />
+<meta property="og:url" content="http://localhost:4000/2022/12/05/part-11-balanced-trees.html" />
+<meta property="og:site_name" content="csc130csus.ivanbautista.dev" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-12-05T04:12:11-08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Part 11 Balanced Trees" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-12-05T04:12:11-08:00","datePublished":"2022-12-05T04:12:11-08:00","description":"Part 11: Balanced Trees","headline":"Part 11 Balanced Trees","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2022/12/05/part-11-balanced-trees.html"},"url":"http://localhost:4000/2022/12/05/part-11-balanced-trees.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="csc130csus.ivanbautista.dev" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">csc130csus.ivanbautista.dev</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">Notes on Algorithms and Data Structures</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Part 11 Balanced Trees</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2022-12-05T04:12:11-08:00" itemprop="datePublished">Dec 5, 2022
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h1 id="part-11-balanced-trees">Part 11: Balanced Trees</h1>
+
+<h2 id="balanced-trees">Balanced Trees</h2>
+
+<p>A balanced tree is a tree data structure in which the difference in height between the left and right subtrees of every node is at most one. Balanced trees have better time complexity for search, insertion, and deletion operations than unbalanced trees, because the height of the tree is logarithmic in the number of nodes.</p>
+
+<p>There are several types of balanced trees, including AVL trees and red-black trees.</p>
+
+<h2 id="avl-trees">AVL Trees</h2>
+
+<p>An AVL tree (named after its inventors, Adelson-Velsky and Landis) is a self-balancing binary search tree. It maintains balance by ensuring that the height difference between the left and right subtrees of every node is at most one.</p>
+
+<p>To maintain balance, AVL trees use rotations. There are four types of rotations: left rotation, right rotation, left-right rotation, and right-left rotation. These rotations are used to reorganize the tree after an insertion or deletion to ensure that the balance property is maintained.</p>
+
+<h2 id="red-black-trees">Red-Black Trees</h2>
+
+<p>A red-black tree is a self-balancing binary search tree that maintains balance by coloring the nodes red or black. It has the following properties:</p>
+
+<ul>
+  <li>The root is always black.</li>
+  <li>All leaves are black.</li>
+  <li>If a node is red, both of its children are black.</li>
+  <li>Every path from the root to a leaf contains the same number of black nodes.</li>
+</ul>
+
+<p>To maintain these properties, red-black trees use rotations and color changes. There are four types of rotations: left rotation, right rotation, left-right rotation, and right-left rotation. These rotations are used to reorganize the tree after an insertion or deletion to ensure that the balance property is maintained.</p>
+
+<h2 id="pros-and-cons-of-balanced-trees">Pros and Cons of Balanced Trees</h2>
+
+<p>Balanced trees have several advantages:</p>
+
+<ul>
+  <li>They have better time complexity for search, insertion, and deletion operations than unbalanced trees.</li>
+  <li>They are more space-efficient than other data structures with the same time complexity, such as arrays or linked lists.</li>
+</ul>
+
+<p>However, balanced trees also have some disadvantages:</p>
+
+<ul>
+  <li>They have more complex insertion and deletion operations than unbalanced trees.</li>
+  <li>They may require more memory overhead for storing additional information such as colors or balance factors.</li>
+</ul>
+
+<p>Balanced trees are a good choice when search, insertion, and deletion operations are frequent and the tree is expected to have a large number of nodes. They are less suitable for situations where the tree is small or the time complexity of the insertion and deletion operations is more important than the time complexity of search operations.</p>
+
+<h2 id="javascript-snippet-that-demonstrates-how-avl-tree-works">JavaScript “Snippet” that demonstrates how AVL tree works</h2>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">AVLTree</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">root</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// method to insert a new element into the tree</span>
+  <span class="nx">insert</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// create a new node</span>
+    <span class="kd">const</span> <span class="nx">newNode</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">value</span><span class="p">,</span>
+      <span class="na">left</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="na">right</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="na">height</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="p">};</span>
+
+    <span class="c1">// if the tree is empty, the new node is the root</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">root</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">root</span> <span class="o">=</span> <span class="nx">newNode</span><span class="p">;</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// otherwise, find the correct position for the new node</span>
+    <span class="kd">let</span> <span class="nx">currentNode</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">root</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">&lt;</span> <span class="nx">currentNode</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// if the new value is less than the current node's value, go to the left</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">currentNode</span><span class="p">.</span><span class="nx">left</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">currentNode</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">newNode</span><span class="p">;</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">currentNode</span> <span class="o">=</span> <span class="nx">currentNode</span><span class="p">.</span><span class="nx">left</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// if the new value is greater than or equal to the current node's value, go to the right</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">currentNode</span><span class="p">.</span><span class="nx">right</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">currentNode</span><span class="p">.</span><span class="nx">right</span> <span class="o">=</span> <span class="nx">newNode</span><span class="p">;</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">currentNode</span> <span class="o">=</span> <span class="nx">currentNode</span><span class="p">.</span><span class="nx">right</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// fix any violations of the AVL tree balance property</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">fixTree</span><span class="p">(</span><span class="nx">newNode</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// method to fix any violations of the AVL tree balance property</span>
+  <span class="nx">fixTree</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// if the tree is balanced, there is nothing to do</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getBalanceFactor</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+	    <span class="c1">// if the balance factor is greater than 1, the tree is left-heavy</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getBalanceFactor</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// if the left child is left-heavy, perform a left-left rotation</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getBalanceFactor</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">rotateRight</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="c1">// if the left child is right-heavy, perform a left-right rotation</span>
+      <span class="k">else</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">rotateLeftRight</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c1">// if the balance factor is less than -1, the tree is right-heavy</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getBalanceFactor</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// if the right child is right-heavy, perform a right-right rotation</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getBalanceFactor</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">right</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">rotateLeft</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="c1">// if the right child is left-heavy, perform a right-left rotation</span>
+      <span class="k">else</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">rotateRightLeft</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+
+</code></pre></div></div>
+
+<h5 id="testing-the-code-snippet">Testing the code-Snippet</h5>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">tree</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AVLTree</span><span class="p">();</span>
+<span class="nx">tree</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="nx">tree</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="nx">tree</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+<span class="nx">tree</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+<span class="nx">tree</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span>
+<span class="nx">tree</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">13</span><span class="p">);</span>
+<span class="nx">tree</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">17</span><span class="p">);</span>
+
+</code></pre></div></div>
+
+
+  </div><a class="u-url" href="/2022/12/05/part-11-balanced-trees.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">csc130csus.ivanbautista.dev</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">csc130csus.ivanbautista.dev</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ivanbautista"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ivanbautista</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Here, you will find a collection of notes on algorithms and data structures, covering topics such as analysis of algorithms, abstract data types, recursion, queues and stacks, binary search and sorting, recursive sorting algorithms, non-comparative sorting, trees, heaps and priority queues, binary search trees, balanced trees, hashing, and graphs. I hope you find these notes useful and informative.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

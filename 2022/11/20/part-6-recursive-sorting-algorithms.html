@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Part 6 Recursive Sorting Algorithms | csc130csus.ivanbautista.dev</title>
+<meta name="generator" content="Jekyll v4.3.1" />
+<meta property="og:title" content="Part 6 Recursive Sorting Algorithms" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Part 6: Recursive Sorting Algorithms" />
+<meta property="og:description" content="Part 6: Recursive Sorting Algorithms" />
+<link rel="canonical" href="http://localhost:4000/2022/11/20/part-6-recursive-sorting-algorithms.html" />
+<meta property="og:url" content="http://localhost:4000/2022/11/20/part-6-recursive-sorting-algorithms.html" />
+<meta property="og:site_name" content="csc130csus.ivanbautista.dev" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-11-20T04:12:06-08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Part 6 Recursive Sorting Algorithms" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-20T04:12:06-08:00","datePublished":"2022-11-20T04:12:06-08:00","description":"Part 6: Recursive Sorting Algorithms","headline":"Part 6 Recursive Sorting Algorithms","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2022/11/20/part-6-recursive-sorting-algorithms.html"},"url":"http://localhost:4000/2022/11/20/part-6-recursive-sorting-algorithms.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="csc130csus.ivanbautista.dev" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">csc130csus.ivanbautista.dev</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">Notes on Algorithms and Data Structures</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Part 6 Recursive Sorting Algorithms</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2022-11-20T04:12:06-08:00" itemprop="datePublished">Nov 20, 2022
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h1 id="part-6-recursive-sorting-algorithms">Part 6: Recursive Sorting Algorithms</h1>
+
+<h2 id="merge-sort">Merge Sort</h2>
+
+<p>Merge sort is a sorting algorithm that works by dividing the array into smaller subarrays, sorting them recursively, and then merging the sorted subarrays back together.</p>
+
+<p>To implement merge sort, we can define a <code class="language-plaintext highlighter-rouge">mergeSort</code> function that takes an array as an input and returns the sorted array. The function works as follows:</p>
+
+<ol>
+  <li>If the array has fewer than 2 elements, return it. This is the base case of the recursion.</li>
+  <li>Calculate the midpoint of the array.</li>
+  <li>Divide the array into two subarrays: <code class="language-plaintext highlighter-rouge">left</code> and <code class="language-plaintext highlighter-rouge">right</code>.</li>
+  <li>Recursively sort the left and right subarrays.</li>
+  <li>Merge the left and right subarrays and return the result.</li>
+</ol>
+
+<p>To merge the left and right subarrays, we can define a <code class="language-plaintext highlighter-rouge">merge</code> function that takes two sorted arrays as inputs and returns a single sorted array. The function works as follows:</p>
+
+<ol>
+  <li>Initialize an empty result array.</li>
+  <li>While both subarrays have elements, compare the first elements and append the smaller one to the result array.</li>
+  <li>Append the remaining elements of the left or right subarray to the result array.</li>
+  <li>Return the result array.</li>
+</ol>
+
+<p>Merge sort has a time complexity of O(n * log(n)), making it an efficient sorting algorithm for large arrays. However, it requires additional space to store the subarrays during the recursive calls, which may not be practical for very large arrays.</p>
+
+<h2 id="quick-sort">Quick Sort</h2>
+
+<p>Quick sort is another sorting algorithm that works by dividing the array into smaller subarrays and sorting them recursively. It uses a pivot element to partition the array into two subarrays: one containing elements less than the pivot, and the other containing elements greater than or equal to the pivot.</p>
+
+<p>To implement quick sort, we can define a <code class="language-plaintext highlighter-rouge">quickSort</code> function that takes an array as an input and returns the sorted array. The function works as follows:</p>
+
+<ol>
+  <li>If the array has fewer than 2 elements, return it. This is the base case of the recursion.</li>
+  <li>Choose a pivot element from the array.</li>
+  <li>Partition the array into two subarrays: <code class="language-plaintext highlighter-rouge">left</code> and <code class="language-plaintext highlighter-rouge">right</code>. The <code class="language-plaintext highlighter-rouge">left</code> subarray should contain elements less than the pivot, and the <code class="language-plaintext highlighter-rouge">right</code> subarray should contain elements greater than or equal to the pivot.</li>
+  <li>Recursively sort the <code class="language-plaintext highlighter-rouge">left</code> and <code class="language-plaintext highlighter-rouge">right</code> subarrays.</li>
+  <li>Concatenate the <code class="language-plaintext highlighter-rouge">left</code> subarray, the pivot element, and the <code class="language-plaintext highlighter-rouge">right</code> subarray and return the result.</li>
+</ol>
+
+<p>Quick sort has a time complexity of O(n * log(n)) on average, making it an efficient sorting algorithm for large arrays. However, it has a worst-case time complexity of O(n^2) if the pivot element is chosen poorly, which can make it slower than other sorting algorithms in certain cases.</p>
+
+<h2 id="javascript-code-that-demonstrates-how-the-sorting-algorithms-works">JavaScript code that demonstrates how the Sorting Algorithms works</h2>
+<p><strong>You can copy and paste the code into a JavaScript console from the web browser using the following key combination “Ctrl + Shift + i”, then paste the following code.</strong></p>
+
+<h3 id="merge-sort-1">Merge Sort</h3>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">mergeSort</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// If the array has fewer than 2 elements, return it</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+  <span class="c1">// Calculate the midpoint of the array</span>
+  <span class="kd">let</span> <span class="nx">mid</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+  <span class="c1">// Divide the array into two subarrays</span>
+  <span class="kd">let</span> <span class="nx">left</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">mid</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">right</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">mid</span><span class="p">);</span>
+  <span class="c1">// Recursively sort the left and right subarrays</span>
+  <span class="nx">left</span> <span class="o">=</span> <span class="nx">mergeSort</span><span class="p">(</span><span class="nx">left</span><span class="p">);</span>
+  <span class="nx">right</span> <span class="o">=</span> <span class="nx">mergeSort</span><span class="p">(</span><span class="nx">right</span><span class="p">);</span>
+  <span class="c1">// Merge the left and right subarrays and return the result</span>
+  <span class="k">return</span> <span class="nx">merge</span><span class="p">(</span><span class="nx">left</span><span class="p">,</span> <span class="nx">right</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">merge</span><span class="p">(</span><span class="nx">left</span><span class="p">,</span> <span class="nx">right</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Initialize an empty result array</span>
+  <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="c1">// While both subarrays have elements, compare the first elements and append the smaller one to the result array</span>
+  <span class="k">while</span> <span class="p">(</span><span class="nx">left</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">right</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">left</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">right</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">{</span>
+      <span class="nx">result</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">left</span><span class="p">.</span><span class="nx">shift</span><span class="p">());</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">result</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">right</span><span class="p">.</span><span class="nx">shift</span><span class="p">());</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="c1">// Append the remaining elements of the left or right subarray to the result array</span>
+  <span class="nx">result</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">left</span><span class="p">).</span><span class="nx">concat</span><span class="p">(</span><span class="nx">right</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Test the mergeSort function with an example array</span>
+<span class="kd">let</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">];</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">mergeSort</span><span class="p">(</span><span class="nx">array</span><span class="p">));</span> <span class="c1">// [1, 2, 3, 4, 5]</span>
+</code></pre></div></div>
+
+<h5 id="testing-the-function">Testing the function</h5>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Test the mergeSort function with an example array</span>
+<span class="kd">let</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">];</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">mergeSort</span><span class="p">(</span><span class="nx">array</span><span class="p">));</span> <span class="c1">// [1, 2, 3, 4, 5]</span>
+</code></pre></div></div>
+
+<h3 id="quick-sort-1">Quick Sort</h3>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">quickSort</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// If the array has fewer than 2 elements, return it</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+  <span class="c1">// Choose the first element as the pivot</span>
+  <span class="kd">let</span> <span class="nx">pivot</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="c1">// Partition the array into two subarrays based on the pivot</span>
+  <span class="kd">let</span> <span class="nx">left</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">filter</span><span class="p">(</span><span class="nx">element</span> <span class="o">=&gt;</span> <span class="nx">element</span> <span class="o">&lt;</span> <span class="nx">pivot</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">right</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">filter</span><span class="p">(</span><span class="nx">element</span> <span class="o">=&gt;</span> <span class="nx">element</span> <span class="o">&gt;=</span> <span class="nx">pivot</span><span class="p">);</span>
+  <span class="c1">// Recursively sort the left and right subarrays</span>
+  <span class="nx">left</span> <span class="o">=</span> <span class="nx">quickSort</span><span class="p">(</span><span class="nx">left</span><span class="p">);</span>
+  <span class="nx">right</span> <span class="o">=</span> <span class="nx">quickSort</span><span class="p">(</span><span class="nx">right</span><span class="p">);</span>
+  <span class="c1">// Concatenate the left subarray, the pivot element, and the right subarray and return the result</span>
+  <span class="k">return</span> <span class="nx">left</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">pivot</span><span class="p">).</span><span class="nx">concat</span><span class="p">(</span><span class="nx">right</span><span class="p">);</span>
+<span class="p">}</span>
+
+
+</code></pre></div></div>
+<h5 id="testing-the-code">Testing the code</h5>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Test the quickSort function with an example array</span>
+<span class="kd">let</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">];</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">quickSort</span><span class="p">(</span><span class="nx">array</span><span class="p">));</span> <span class="c1">// [1, 2, 3, 4, 5]</span>
+
+</code></pre></div></div>
+
+  </div><a class="u-url" href="/2022/11/20/part-6-recursive-sorting-algorithms.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">csc130csus.ivanbautista.dev</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">csc130csus.ivanbautista.dev</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ivanbautista"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ivanbautista</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Here, you will find a collection of notes on algorithms and data structures, covering topics such as analysis of algorithms, abstract data types, recursion, queues and stacks, binary search and sorting, recursive sorting algorithms, non-comparative sorting, trees, heaps and priority queues, binary search trees, balanced trees, hashing, and graphs. I hope you find these notes useful and informative.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,1179 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-12-20T06:27:19-08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">csc130csus.ivanbautista.dev</title><subtitle>Here, you will find a collection of notes on algorithms and data structures, covering topics such as analysis of algorithms, abstract data types, recursion, queues and stacks, binary search and sorting, recursive sorting algorithms, non-comparative sorting, trees, heaps and priority queues, binary search trees, balanced trees, hashing, and graphs. I hope you find these notes useful and informative.</subtitle><entry><title type="html">Part 13 Graphs</title><link href="http://localhost:4000/2022/12/05/part-13-graphs.html" rel="alternate" type="text/html" title="Part 13 Graphs" /><published>2022-12-05T04:12:13-08:00</published><updated>2022-12-05T04:12:13-08:00</updated><id>http://localhost:4000/2022/12/05/part-13-graphs</id><content type="html" xml:base="http://localhost:4000/2022/12/05/part-13-graphs.html"><![CDATA[<h1 id="part-13-graphs">Part 13: Graphs</h1>
+
+<h2 id="graphs">Graphs</h2>
+
+<p>A graph is a data structure that consists of a finite set of vertices (also called nodes) and a set of edges connecting these vertices. Graphs can be used to represent a wide variety of relationships and connections in data, such as roads in a map, social connections in a network, or dependencies in a project.</p>
+
+<p>There are several types of graphs, including:</p>
+
+<ul>
+  <li><strong>Directed graphs</strong>, in which the edges have a direction and connect one vertex to another.</li>
+  <li><strong>Undirected graphs</strong>, in which the edges do not have a direction and connect two vertices bidirectionally.</li>
+  <li><strong>Weighted graphs</strong>, in which the edges have a weight or cost associated with them.</li>
+  <li><strong>Unweighted graphs</strong>, in which the edges do not have a weight.</li>
+</ul>
+
+<h2 id="graph-traversal">Graph Traversal</h2>
+
+<p>Graph traversal refers to the process of visiting all the vertices in a graph, following the edges to move from one vertex to another. There are several algorithms for traversing graphs, including:</p>
+
+<ul>
+  <li><strong>Breadth-first search (BFS)</strong>, which explores the vertices in the graph by starting at a root vertex and visiting all the vertices at the same depth (i.e., distance from the root) before moving on to the next depth.</li>
+  <li><strong>Depth-first search (DFS)</strong>, which explores the vertices in the graph by starting at a root vertex and visiting as many vertices as possible along a single path before backtracking and visiting other paths.</li>
+</ul>
+
+<h2 id="shortest-paths">Shortest Paths</h2>
+
+<p>In a weighted graph, the shortest path between two vertices is the path with the lowest total weight. There are several algorithms for finding the shortest path in a graph, including:</p>
+
+<ul>
+  <li><strong>Dijkstra’s algorithm</strong>, which finds the shortest path between a starting vertex and all other vertices in a graph by repeatedly selecting the vertex with the lowest distance and updating the distances of its neighbors.</li>
+  <li><em>_A</em> search_*, which is a variant of Dijkstra’s algorithm that uses an additional heuristic function to guide the search and improve its efficiency.</li>
+  <li><strong>Bellman-Ford algorithm</strong>, which finds the shortest path between a starting vertex and all other vertices in a graph by repeatedly relaxing the edges and updating the distances of the vertices.</li>
+</ul>
+
+<h2 id="minimum-spanning-trees">Minimum Spanning Trees</h2>
+
+<p>A minimum spanning tree (MST) is a subset of the edges of a graph that connects all the vertices together, without any cycles, and with the minimum total weight. There are several algorithms for finding the MST of a graph, including:</p>
+
+<ul>
+  <li><strong>Kruskal’s algorithm</strong>, which finds the MST by repeatedly selecting the lowest-weight edge that does not create a cycle and adding it to the MST.</li>
+  <li><strong>Prim’s algorithm</strong>, which finds the MST by repeatedly selecting the lowest-weight edge that connects a vertex in the MST to a vertex not in the MST and adding it to the MST.</li>
+</ul>
+
+<h2 id="javascript-code-that-demonstrates-how-graph-works">JavaScript code that demonstrates how Graph works</h2>
+<p><strong>You can copy and paste the code into a JavaScript console from the web browser using the following key combination “Ctrl + Shift + i”, then paste the following code.</strong></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Graph</span> <span class="p">{</span>
+  <span class="c1">// constructor to create a new graph with the given number of vertices</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">numVertices</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">numVertices</span> <span class="o">=</span> <span class="nx">numVertices</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">adjList</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Map</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="c1">// method to add a new vertex to the graph</span>
+  <span class="nx">addVertex</span><span class="p">(</span><span class="nx">vertex</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">adjList</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="nx">vertex</span><span class="p">,</span> <span class="p">[]);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// method to add a new edge to the graph</span>
+  <span class="nx">addEdge</span><span class="p">(</span><span class="nx">src</span><span class="p">,</span> <span class="nx">dest</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">adjList</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">src</span><span class="p">).</span><span class="nx">push</span><span class="p">(</span><span class="nx">dest</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">adjList</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">dest</span><span class="p">).</span><span class="nx">push</span><span class="p">(</span><span class="nx">src</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// method to print the adjacency list of the graph</span>
+  <span class="nx">printGraph</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Adjacency list:</span><span class="dl">'</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">const</span> <span class="p">[</span><span class="nx">vertex</span><span class="p">,</span> <span class="nx">edges</span><span class="p">]</span> <span class="k">of</span> <span class="k">this</span><span class="p">.</span><span class="nx">adjList</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">vertex</span><span class="p">}</span><span class="s2"> -&gt; </span><span class="p">${</span><span class="nx">edges</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="dl">'</span><span class="s1">, </span><span class="dl">'</span><span class="p">)}</span><span class="s2">`</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// method to perform breadth-first search on the graph</span>
+  <span class="nx">bfs</span><span class="p">(</span><span class="nx">startVertex</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// create a queue for storing the vertices to be visited</span>
+    <span class="kd">let</span> <span class="nx">queue</span> <span class="o">=</span> <span class="p">[</span><span class="nx">startVertex</span><span class="p">];</span>
+
+    <span class="c1">// create a set for storing the vertices that have been visited</span>
+    <span class="kd">let</span> <span class="nx">visited</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Set</span><span class="p">();</span>
+    <span class="nx">visited</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">startVertex</span><span class="p">);</span>
+
+    <span class="c1">// while the queue is not empty</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">queue</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// remove the first vertex from the queue</span>
+      <span class="kd">let</span> <span class="nx">vertex</span> <span class="o">=</span> <span class="nx">queue</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+
+      <span class="c1">// print the vertex</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">vertex</span><span class="p">);</span>
+
+      <span class="c1">// get the neighbors of the vertex</span>
+      <span class="kd">let</span> <span class="nx">neighbors</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">adjList</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">vertex</span><span class="p">);</span>
+
+      <span class="c1">// for each neighbor, if it has not been visited, add it to the queue and mark it as visited</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">neighbor</span> <span class="k">of</span> <span class="nx">neighbors</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">visited</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="nx">neighbor</span><span class="p">))</span> <span class="p">{</span>
+          <span class="nx">queue</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">neighbor</span><span class="p">);</span>
+          <span class="nx">visited</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">neighbor</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+
+</code></pre></div></div>
+
+<h5 id="testing-the-code">Testing the code</h5>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// create a new graph with 5 vertices</span>
+<span class="kd">let</span> <span class="nx">graph</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Graph</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+
+<span class="c1">// add the vertices to the graph</span>
+<span class="nx">graph</span><span class="p">.</span><span class="nx">addVertex</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="nx">graph</span><span class="p">.</span><span class="nx">addVertex</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="nx">graph</span><span class="p">.</span><span class="nx">addVertex</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="nx">graph</span><span class="p">.</span><span class="nx">addVertex</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+<span class="nx">graph</span><span class="p">.</span><span class="nx">addVertex</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+
+<span class="c1">// add the edges to the graph</span>
+<span class="nx">graph</span><span class="p">.</span><span class="nx">addEdge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="nx">graph</span><span class="p">.</span><span class="nx">addEdge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+<span class="nx">graph</span><span class="p">.</span><span class="nx">addEdge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="nx">graph</span><span class="p">.</span><span class="nx">addEdge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="nx">graph</span><span class="p">.</span><span class="nx">addEdge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+<span class="nx">graph</span><span class="p">.</span><span class="nx">addEdge</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="nx">graph</span><span class="p">.</span><span class="nx">addEdge</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+
+<span class="c1">// print the adjacency list of the graph</span>
+<span class="nx">graph</span><span class="p">.</span><span class="nx">printGraph</span><span class="p">();</span>
+
+<span class="c1">// perform breadth-first search on the graph, starting from vertex 0</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">BFS:</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">graph</span><span class="p">.</span><span class="nx">bfs</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+</code></pre></div></div>]]></content><author><name></name></author><summary type="html"><![CDATA[Part 13: Graphs]]></summary></entry><entry><title type="html">Part 12 Hashing</title><link href="http://localhost:4000/2022/12/05/part-12-hashing.html" rel="alternate" type="text/html" title="Part 12 Hashing" /><published>2022-12-05T04:12:12-08:00</published><updated>2022-12-05T04:12:12-08:00</updated><id>http://localhost:4000/2022/12/05/part-12-hashing</id><content type="html" xml:base="http://localhost:4000/2022/12/05/part-12-hashing.html"><![CDATA[<h1 id="part-12-hashing">Part 12: Hashing</h1>
+
+<h2 id="what-is-hashing">What is hashing?</h2>
+
+<p>Hashing is a technique for storing and retrieving data in a data structure called a hash table. A hash table is a collection of key-value pairs, where each key is unique and is used to locate the corresponding value in the table. Hashing allows for fast insertion, deletion, and search operations, with an average time complexity of O(1).</p>
+
+<h2 id="how-does-hashing-work">How does hashing work?</h2>
+
+<p>Hashing works by using a function, called a hash function, to map keys to array indices. When a new key-value pair is inserted into the hash table, the key is passed through the hash function to generate an array index. The value is then stored at that index in the array.</p>
+
+<p>To search for a value in the hash table, the key is passed through the hash function to generate the index, and the value is retrieved from that index.</p>
+
+<h2 id="what-are-hash-functions">What are hash functions?</h2>
+
+<p>A hash function is a function that maps keys to array indices. A good hash function should have the following properties:</p>
+
+<ul>
+  <li>It should be easy to compute, so that it can be applied quickly to large datasets.</li>
+  <li>It should generate a unique index for each key, to avoid collisions (when two or more keys map to the same index).</li>
+  <li>It should distribute the keys evenly across the array, to avoid clustering and ensure that the hash table is well-balanced.</li>
+</ul>
+
+<p>There are many different ways to implement hash functions, and the choice of hash function can significantly affect the performance of the hash table. Some common hash function techniques include modulo hashing, multiplicative hashing, and universal hashing.</p>
+
+<h2 id="what-are-hash-collisions">What are hash collisions?</h2>
+
+<p>A hash collision occurs when two or more keys map to the same index in the hash table. This can cause problems if the hash table is not designed to handle collisions properly.</p>
+
+<p>There are several ways to handle hash collisions, including open addressing (which tries to find an empty slot in the array for the colliding key-value pair) and chaining (which stores the colliding key-value pairs in a separate data structure, such as a linked list, at the same index).</p>
+
+<h2 id="what-are-the-pros-and-cons-of-hashing">What are the pros and cons of hashing?</h2>
+
+<p>Hashing has several advantages:</p>
+
+<ul>
+  <li>It allows for fast insertion, deletion, and search operations, with an average time complexity of O(1).</li>
+  <li>It uses a fixed amount of memory, so it can be used to store large datasets without requiring additional memory.</li>
+</ul>
+
+<p>However, there are also some disadvantages to consider:</p>
+
+<ul>
+  <li>Hashing requires a good hash function to avoid collisions and ensure good performance. This can be difficult to design and implement, and can affect the overall performance of the hash table.</li>
+  <li>Hashing does not preserve the order of the keys, so it is not suitable for data structures that require sorted keys.</li>
+  <li>Hashing is not suitable for data structures that require complex operations, such as range queries or insertions in the middle of the data structure.</li>
+</ul>
+
+<p>Hashing can be a useful technique for certain types of data structures, such as hash tables and hash maps, but it may not be the best choice for all situations. It’s important to consider the specific needs of your application when deciding whether to use hashing or another data structure.</p>
+
+<h2 id="javascript-code-that-demonstrates-how-hash-table-works">JavaScript code that demonstrates how Hash Table works</h2>
+<p><strong>You can copy and paste the code into a JavaScript console from the web browser using the following key combination “Ctrl + Shift + i, then paste the following code.</strong></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">HashTable</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">size</span> <span class="o">=</span> <span class="mi">53</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">keyMap</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">size</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// hash function to generate an index for a given key</span>
+  <span class="nx">_hash</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">total</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">WEIRD_PRIME</span> <span class="o">=</span> <span class="mi">31</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="nx">key</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">char</span> <span class="o">=</span> <span class="nx">key</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+      <span class="kd">let</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">char</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="mi">96</span><span class="p">;</span>
+      <span class="nx">total</span> <span class="o">=</span> <span class="p">(</span><span class="nx">total</span> <span class="o">*</span> <span class="nx">WEIRD_PRIME</span> <span class="o">+</span> <span class="nx">value</span><span class="p">)</span> <span class="o">%</span> <span class="k">this</span><span class="p">.</span><span class="nx">keyMap</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">total</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// method to set a key-value pair in the hash table</span>
+  <span class="kd">set</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">index</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_hash</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">keyMap</span><span class="p">[</span><span class="nx">index</span><span class="p">])</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">keyMap</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="p">}</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">keyMap</span><span class="p">[</span><span class="nx">index</span><span class="p">].</span><span class="nx">push</span><span class="p">([</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">]);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// method to get the value for a given key</span>
+  <span class="kd">get</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">index</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_hash</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">keyMap</span><span class="p">[</span><span class="nx">index</span><span class="p">])</span> <span class="p">{</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">keyMap</span><span class="p">[</span><span class="nx">index</span><span class="p">].</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">keyMap</span><span class="p">[</span><span class="nx">index</span><span class="p">][</span><span class="nx">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">keyMap</span><span class="p">[</span><span class="nx">index</span><span class="p">][</span><span class="nx">i</span><span class="p">][</span><span class="mi">1</span><span class="p">];</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">undefined</span><span class="p">;</span>
+  <span class="p">}</span>
+
+
+
+  <span class="c1">// method to get all the keys in the hash table</span>
+  <span class="nx">keys</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">keys</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">keyMap</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">keyMap</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">keyMap</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">keys</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">keyMap</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span> <span class="p">{</span>
+            <span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">keyMap</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]);</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">keys</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// method to get all the values in the hash table</span>
+  <span class="nx">values</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">values</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">keyMap</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">keyMap</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">keyMap</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">values</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">keyMap</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span> <span class="p">{</span>
+            <span class="nx">values</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">keyMap</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]);</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">values</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+
+</code></pre></div></div>
+
+<h5 id="testing-the-code">Testing the code</h5>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">table</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HashTable</span><span class="p">();</span>
+<span class="nx">table</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">foo</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">bar</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">table</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">hello</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">world</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">table</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">foo</span><span class="dl">'</span><span class="p">));</span> <span class="c1">// should print 'bar'</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">table</span><span class="p">.</span><span class="nx">keys</span><span class="p">());</span> <span class="c1">// should print ['foo', 'hello']</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">table</span><span class="p">.</span><span class="nx">values</span><span class="p">());</span> <span class="c1">// should print ['bar', 'world']</span>
+
+</code></pre></div></div>]]></content><author><name></name></author><summary type="html"><![CDATA[Part 12: Hashing]]></summary></entry><entry><title type="html">Part 11 Balanced Trees</title><link href="http://localhost:4000/2022/12/05/part-11-balanced-trees.html" rel="alternate" type="text/html" title="Part 11 Balanced Trees" /><published>2022-12-05T04:12:11-08:00</published><updated>2022-12-05T04:12:11-08:00</updated><id>http://localhost:4000/2022/12/05/part-11-balanced-trees</id><content type="html" xml:base="http://localhost:4000/2022/12/05/part-11-balanced-trees.html"><![CDATA[<h1 id="part-11-balanced-trees">Part 11: Balanced Trees</h1>
+
+<h2 id="balanced-trees">Balanced Trees</h2>
+
+<p>A balanced tree is a tree data structure in which the difference in height between the left and right subtrees of every node is at most one. Balanced trees have better time complexity for search, insertion, and deletion operations than unbalanced trees, because the height of the tree is logarithmic in the number of nodes.</p>
+
+<p>There are several types of balanced trees, including AVL trees and red-black trees.</p>
+
+<h2 id="avl-trees">AVL Trees</h2>
+
+<p>An AVL tree (named after its inventors, Adelson-Velsky and Landis) is a self-balancing binary search tree. It maintains balance by ensuring that the height difference between the left and right subtrees of every node is at most one.</p>
+
+<p>To maintain balance, AVL trees use rotations. There are four types of rotations: left rotation, right rotation, left-right rotation, and right-left rotation. These rotations are used to reorganize the tree after an insertion or deletion to ensure that the balance property is maintained.</p>
+
+<h2 id="red-black-trees">Red-Black Trees</h2>
+
+<p>A red-black tree is a self-balancing binary search tree that maintains balance by coloring the nodes red or black. It has the following properties:</p>
+
+<ul>
+  <li>The root is always black.</li>
+  <li>All leaves are black.</li>
+  <li>If a node is red, both of its children are black.</li>
+  <li>Every path from the root to a leaf contains the same number of black nodes.</li>
+</ul>
+
+<p>To maintain these properties, red-black trees use rotations and color changes. There are four types of rotations: left rotation, right rotation, left-right rotation, and right-left rotation. These rotations are used to reorganize the tree after an insertion or deletion to ensure that the balance property is maintained.</p>
+
+<h2 id="pros-and-cons-of-balanced-trees">Pros and Cons of Balanced Trees</h2>
+
+<p>Balanced trees have several advantages:</p>
+
+<ul>
+  <li>They have better time complexity for search, insertion, and deletion operations than unbalanced trees.</li>
+  <li>They are more space-efficient than other data structures with the same time complexity, such as arrays or linked lists.</li>
+</ul>
+
+<p>However, balanced trees also have some disadvantages:</p>
+
+<ul>
+  <li>They have more complex insertion and deletion operations than unbalanced trees.</li>
+  <li>They may require more memory overhead for storing additional information such as colors or balance factors.</li>
+</ul>
+
+<p>Balanced trees are a good choice when search, insertion, and deletion operations are frequent and the tree is expected to have a large number of nodes. They are less suitable for situations where the tree is small or the time complexity of the insertion and deletion operations is more important than the time complexity of search operations.</p>
+
+<h2 id="javascript-snippet-that-demonstrates-how-avl-tree-works">JavaScript “Snippet” that demonstrates how AVL tree works</h2>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">AVLTree</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">root</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// method to insert a new element into the tree</span>
+  <span class="nx">insert</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// create a new node</span>
+    <span class="kd">const</span> <span class="nx">newNode</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">value</span><span class="p">,</span>
+      <span class="na">left</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="na">right</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="na">height</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="p">};</span>
+
+    <span class="c1">// if the tree is empty, the new node is the root</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">root</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">root</span> <span class="o">=</span> <span class="nx">newNode</span><span class="p">;</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// otherwise, find the correct position for the new node</span>
+    <span class="kd">let</span> <span class="nx">currentNode</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">root</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">&lt;</span> <span class="nx">currentNode</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// if the new value is less than the current node's value, go to the left</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">currentNode</span><span class="p">.</span><span class="nx">left</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">currentNode</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">newNode</span><span class="p">;</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">currentNode</span> <span class="o">=</span> <span class="nx">currentNode</span><span class="p">.</span><span class="nx">left</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// if the new value is greater than or equal to the current node's value, go to the right</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">currentNode</span><span class="p">.</span><span class="nx">right</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">currentNode</span><span class="p">.</span><span class="nx">right</span> <span class="o">=</span> <span class="nx">newNode</span><span class="p">;</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">currentNode</span> <span class="o">=</span> <span class="nx">currentNode</span><span class="p">.</span><span class="nx">right</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// fix any violations of the AVL tree balance property</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">fixTree</span><span class="p">(</span><span class="nx">newNode</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// method to fix any violations of the AVL tree balance property</span>
+  <span class="nx">fixTree</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// if the tree is balanced, there is nothing to do</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getBalanceFactor</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+	    <span class="c1">// if the balance factor is greater than 1, the tree is left-heavy</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getBalanceFactor</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// if the left child is left-heavy, perform a left-left rotation</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getBalanceFactor</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">rotateRight</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="c1">// if the left child is right-heavy, perform a left-right rotation</span>
+      <span class="k">else</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">rotateLeftRight</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c1">// if the balance factor is less than -1, the tree is right-heavy</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getBalanceFactor</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// if the right child is right-heavy, perform a right-right rotation</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getBalanceFactor</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">right</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">rotateLeft</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="c1">// if the right child is left-heavy, perform a right-left rotation</span>
+      <span class="k">else</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">rotateRightLeft</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+
+</code></pre></div></div>
+
+<h5 id="testing-the-code-snippet">Testing the code-Snippet</h5>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">tree</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AVLTree</span><span class="p">();</span>
+<span class="nx">tree</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="nx">tree</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="nx">tree</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+<span class="nx">tree</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+<span class="nx">tree</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span>
+<span class="nx">tree</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">13</span><span class="p">);</span>
+<span class="nx">tree</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">17</span><span class="p">);</span>
+
+</code></pre></div></div>]]></content><author><name></name></author><summary type="html"><![CDATA[Part 11: Balanced Trees]]></summary></entry><entry><title type="html">Part 10 Binary Search Trees</title><link href="http://localhost:4000/2022/12/05/part-10-binary-search-trees.html" rel="alternate" type="text/html" title="Part 10 Binary Search Trees" /><published>2022-12-05T04:12:10-08:00</published><updated>2022-12-05T04:12:10-08:00</updated><id>http://localhost:4000/2022/12/05/part-10-binary-search-trees</id><content type="html" xml:base="http://localhost:4000/2022/12/05/part-10-binary-search-trees.html"><![CDATA[<h1 id="part-10-binary-search-trees">Part 10: Binary Search Trees</h1>
+
+<h2 id="binary-search-trees">Binary Search Trees</h2>
+
+<p>A binary search tree (BST) is a tree data structure in which each node has a value that is greater than all the values in its left subtree and less than all the values in its right subtree. This property allows for fast insertion, deletion, and search operations on the tree.</p>
+
+<p>The root of the tree is the node with the largest value, and the leaves of the tree are nodes with no children. A BST can also be implemented using an array, where the left child of the element at index <code class="language-plaintext highlighter-rouge">i</code> is at index <code class="language-plaintext highlighter-rouge">2i+1</code> and the right child is at index <code class="language-plaintext highlighter-rouge">2i+2</code>.</p>
+
+<h2 id="inserting-and-deleting-elements">Inserting and Deleting Elements</h2>
+
+<p>To insert a new element into a BST, it is compared to the root node. If the new element is less than the root, it is inserted into the left subtree. If the new element is greater than the root, it is inserted into the right subtree. This process is repeated until the new element is inserted at a leaf node.</p>
+
+<p>To delete an element from a BST, the following steps are taken:</p>
+
+<ol>
+  <li>If the element to be deleted is a leaf node, simply remove it from the tree.</li>
+  <li>If the element has only one child, delete it and replace it with its child.</li>
+  <li>If the element has two children, find the minimum element in the right subtree and replace the element to be deleted with the minimum element. Then delete the minimum element from the right subtree.</li>
+</ol>
+
+<h2 id="searching-for-elements">Searching for Elements</h2>
+
+<p>To search for an element in a BST, the following steps are taken:</p>
+
+<ol>
+  <li>If the element is the root of the tree, return true.</li>
+  <li>If the element is less than the root, search the left subtree.</li>
+  <li>If the element is greater than the root, search the right subtree.</li>
+</ol>
+
+<p>This process is repeated until the element is found or it is determined that the element is not present in the tree.</p>
+
+<h2 id="pros-and-cons-of-bsts">Pros and Cons of BSTs</h2>
+
+<p>BSTs have several advantages:</p>
+
+<ul>
+  <li>They allow for fast insertion, deletion, and search operations.</li>
+  <li>They can be implemented using an array, which is space-efficient.</li>
+</ul>
+
+<p>However, BSTs also have some disadvantages:</p>
+
+<ul>
+  <li>If the tree is not balanced, the search, insertion, and deletion operations may become slow.</li>
+  <li>It is possible for a BST to become degenerate, where it is essentially a linked list and has the same time complexity as a linear search.</li>
+</ul>
+
+<p>To address these issues, there are several variations of BSTs that maintain a balanced tree, such as AVL trees and red-black trees. These trees have more complex insertion and deletion operations, but they have better time complexity for search operations.</p>
+
+<h2 id="javascript-code-that-demonstrates-how-binary-search-trees-works">JavaScript code that demonstrates how Binary Search Trees works</h2>
+<p><strong>You can copy and paste the code into a JavaScript console from the web browser using the following key combination “Ctrl + Shift + i”, then paste the following code.</strong></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">BinarySearchTree</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">root</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// method to insert a new element into the tree</span>
+  <span class="nx">insert</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// create a new node</span>
+    <span class="kd">const</span> <span class="nx">newNode</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">value</span><span class="p">,</span>
+      <span class="na">left</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="na">right</span><span class="p">:</span> <span class="kc">null</span>
+    <span class="p">};</span>
+
+    <span class="c1">// if the tree is empty, the new node is the root</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">root</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">root</span> <span class="o">=</span> <span class="nx">newNode</span><span class="p">;</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// otherwise, find the correct position for the new node</span>
+    <span class="kd">let</span> <span class="nx">currentNode</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">root</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">&lt;</span> <span class="nx">currentNode</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// if the new value is greater than or equal to the current node's value, go to the right</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">currentNode</span><span class="p">.</span><span class="nx">right</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">currentNode</span><span class="p">.</span><span class="nx">right</span> <span class="o">=</span> <span class="nx">newNode</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="nx">currentNode</span> <span class="o">=</span> <span class="nx">currentNode</span><span class="p">.</span><span class="nx">right</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// method to search for a value in the tree</span>
+  <span class="nx">search</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// start at the root</span>
+    <span class="kd">let</span> <span class="nx">currentNode</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">root</span><span class="p">;</span>
+
+    <span class="c1">// while the current node is not null</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">currentNode</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">&lt;</span> <span class="nx">currentNode</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// if the value is less than the current node's value, go to the left</span>
+        <span class="nx">currentNode</span> <span class="o">=</span> <span class="nx">currentNode</span><span class="p">.</span><span class="nx">left</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">&gt;</span> <span class="nx">currentNode</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// if the value is greater than the current node's value, go to the right</span>
+        <span class="nx">currentNode</span> <span class="o">=</span> <span class="nx">currentNode</span><span class="p">.</span><span class="nx">right</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// if the value is equal to the current node's value, return true</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// if the value is not found, return false</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+
+
+</code></pre></div></div>
+
+<h5 id="testing-the-code">Testing the code</h5>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// create a new binary search tree</span>
+<span class="kd">const</span> <span class="nx">bst</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BinarySearchTree</span><span class="p">();</span>
+
+<span class="c1">// insert some values into the tree</span>
+<span class="nx">bst</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="nx">bst</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="nx">bst</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+<span class="nx">bst</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+<span class="nx">bst</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span>
+<span class="nx">bst</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">13</span><span class="p">);</span>
+<span class="nx">bst</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">17</span><span class="p">);</span>
+
+<span class="c1">// search for some values in the tree</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">bst</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="mi">5</span><span class="p">));</span>  <span class="c1">// should print true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">bst</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="mi">11</span><span class="p">));</span> <span class="c1">// should print false</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">bst</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="mi">17</span><span class="p">));</span> <span class="c1">// should print true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">bst</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>  <span class="c1">// should print false</span>
+</code></pre></div></div>]]></content><author><name></name></author><summary type="html"><![CDATA[Part 10: Binary Search Trees]]></summary></entry><entry><title type="html">Part 9 Heaps &amp;amp; Priority Queues</title><link href="http://localhost:4000/2022/11/20/part-9-heaps-&-priority-queues.html" rel="alternate" type="text/html" title="Part 9 Heaps &amp;amp; Priority Queues" /><published>2022-11-20T04:12:09-08:00</published><updated>2022-11-20T04:12:09-08:00</updated><id>http://localhost:4000/2022/11/20/part-9-heaps-&amp;-priority-queues</id><content type="html" xml:base="http://localhost:4000/2022/11/20/part-9-heaps-&amp;-priority-queues.html"><![CDATA[<h1 id="part-9-heaps--priority-queues">Part 9: Heaps &amp; Priority Queues</h1>
+
+<h2 id="heaps">Heaps</h2>
+
+<p>A heap is a complete binary tree in which each node has a value that is greater than or equal to its children. There are two types of heaps: min-heaps and max-heaps. In a min-heap, the value of each node is less than or equal to its children, while in a max-heap, the value of each node is greater than or equal to its children.</p>
+
+<h2 id="priority-queues">Priority Queues</h2>
+
+<p>A priority queue is a data structure that allows each element to have a priority, so that elements with higher priorities are dequeued before elements with lower priorities. Heaps are often used to implement priority queues, because the heap property allows for fast insertion and removal of elements.</p>
+
+<h2 id="inserting-and-removing-elements">Inserting and Removing Elements</h2>
+
+<p>To insert a new element into a heap, it is added to the end of the heap and then “upheaped” until it reaches its correct position. To remove the top element (either the minimum or maximum element, depending on the type of heap), it is replaced with the last element in the heap and then “downheaped” until it reaches its correct position.</p>
+
+<p>Heaps can also be implemented using an array, where the children of the element at index <code class="language-plaintext highlighter-rouge">i</code> are at indices <code class="language-plaintext highlighter-rouge">2i+1</code> and <code class="language-plaintext highlighter-rouge">2i+2</code>. In this case, the “upheap” and “downheap” operations can be implemented using array element swaps.</p>
+
+<h2 id="javascript-code-that-demonstrates-how-min-heap-works">JavaScript code that demonstrates how Min Heap works</h2>
+<p><strong>You can copy and paste the code into a JavaScript console from the web browser using the following key combination “Ctrl + Shift + i”, then paste the following code.</strong></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">MinHeap</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">heap</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="p">}</span>
+
+  <span class="c1">// method to insert a new element into the heap</span>
+  <span class="nx">insert</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// add the new element to the end of the heap</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+
+    <span class="c1">// upheap the new element until it reaches its correct position</span>
+    <span class="kd">let</span> <span class="nx">currentIndex</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">currentIndex</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">parentIndex</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nx">currentIndex</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">currentIndex</span><span class="p">]</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">parentIndex</span><span class="p">])</span> <span class="p">{</span>
+        <span class="c1">// if the new element is less than its parent, swap them</span>
+        <span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">currentIndex</span><span class="p">],</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">parentIndex</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">parentIndex</span><span class="p">],</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">currentIndex</span><span class="p">]];</span>
+        <span class="nx">currentIndex</span> <span class="o">=</span> <span class="nx">parentIndex</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// if the new element is greater than or equal to its parent, it is in the correct position</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// method to remove the minimum element from the heap</span>
+  <span class="nx">extractMin</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// if the heap is empty, return null</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+
+    <span class="c1">// if the heap has only one element, return it and set the heap to be empty</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+   
+<span class="c1">// otherwise, remove the minimum element and downheap the new root element until it reaches its correct position</span>
+    <span class="kd">const</span> <span class="nx">min</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+    <span class="kd">let</span> <span class="nx">currentIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">leftIndex</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="nx">currentIndex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="kd">let</span> <span class="nx">rightIndex</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="nx">currentIndex</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+      <span class="kd">let</span> <span class="nx">leftChild</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">leftIndex</span><span class="p">];</span>
+      <span class="kd">let</span> <span class="nx">rightChild</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">rightIndex</span><span class="p">];</span>
+      <span class="kd">let</span> <span class="nx">minIndex</span> <span class="o">=</span> <span class="nx">currentIndex</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">leftChild</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="o">&amp;&amp;</span> <span class="nx">leftChild</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">minIndex</span><span class="p">])</span> <span class="p">{</span>
+        <span class="nx">minIndex</span> <span class="o">=</span> <span class="nx">leftIndex</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">rightChild</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="o">&amp;&amp;</span> <span class="nx">rightChild</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">minIndex</span><span class="p">])</span> <span class="p">{</span>
+        <span class="nx">minIndex</span> <span class="o">=</span> <span class="nx">rightIndex</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">minIndex</span> <span class="o">!==</span> <span class="nx">currentIndex</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">currentIndex</span><span class="p">],</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">minIndex</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">minIndex</span><span class="p">],</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">currentIndex</span><span class="p">]];</span>
+        <span class="nx">currentIndex</span> <span class="o">=</span> <span class="nx">minIndex</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">min</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+
+
+</code></pre></div></div>
+
+<h5 id="testing-the-code">Testing the code</h5>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// create a new min-heap</span>
+<span class="kd">const</span> <span class="nx">heap</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MinHeap</span><span class="p">();</span>
+
+<span class="c1">// insert some values into the heap</span>
+<span class="nx">heap</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="nx">heap</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+<span class="nx">heap</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+<span class="nx">heap</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="nx">heap</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+<span class="nx">heap</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span>
+<span class="nx">heap</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span>
+
+<span class="c1">// extract the minimum element from the heap</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">heap</span><span class="p">.</span><span class="nx">extractMin</span><span class="p">());</span> <span class="c1">// should print 1</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">heap</span><span class="p">.</span><span class="nx">extractMin</span><span class="p">());</span> <span class="c1">// should print 3</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">heap</span><span class="p">.</span><span class="nx">extractMin</span><span class="p">());</span> <span class="c1">// should print 4</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">heap</span><span class="p">.</span><span class="nx">extractMin</span><span class="p">());</span> <span class="c1">// should print 5</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">heap</span><span class="p">.</span><span class="nx">extractMin</span><span class="p">());</span> <span class="c1">// should print 7</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">heap</span><span class="p">.</span><span class="nx">extractMin</span><span class="p">());</span> <span class="c1">// should print 8</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">heap</span><span class="p">.</span><span class="nx">extractMin</span><span class="p">());</span> <span class="c1">// should print 9</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">heap</span><span class="p">.</span><span class="nx">extractMin</span><span class="p">());</span> <span class="c1">// should print null (heap is empty)</span>
+
+</code></pre></div></div>]]></content><author><name></name></author><summary type="html"><![CDATA[Part 9: Heaps &amp; Priority Queues]]></summary></entry><entry><title type="html">Part 8 Trees</title><link href="http://localhost:4000/2022/11/20/part-8-trees.html" rel="alternate" type="text/html" title="Part 8 Trees" /><published>2022-11-20T04:12:08-08:00</published><updated>2022-11-20T04:12:08-08:00</updated><id>http://localhost:4000/2022/11/20/part-8-trees</id><content type="html" xml:base="http://localhost:4000/2022/11/20/part-8-trees.html"><![CDATA[<h1 id="part-8-trees">Part 8: Trees</h1>
+
+<p>A tree is a data structure that consists of nodes arranged in a hierarchy. Each node has zero or more child nodes, and is itself a child of another node. The top node in the hierarchy is called the root node, and the nodes at the bottom of the hierarchy are called leaf nodes.</p>
+
+<h2 id="tree-terminology">Tree Terminology</h2>
+
+<ul>
+  <li><strong>Root node</strong>: The top node in the tree hierarchy.</li>
+  <li><strong>Child node</strong>: A node that is a descendant of another node.</li>
+  <li><strong>Parent node</strong>: The node that is the ancestor of another node.</li>
+  <li><strong>Leaf node</strong>: A node that has no children.</li>
+  <li><strong>Sibling nodes</strong>: Nodes that have the same parent.</li>
+  <li><strong>Descendant</strong>: A node that is a child, grandchild, great-grandchild, and so on of another node.</li>
+  <li><strong>Ancestor</strong>: A node that is a parent, grandparent, great-grandparent, and so on of another node.</li>
+  <li><strong>Level</strong>: The number of edges from the root node to a particular node. The root node is at level 0, its children are at level 1, and so on.</li>
+  <li><strong>Height</strong>: The maximum level of any node in the tree.</li>
+  <li><strong>Depth</strong>: The level of a particular node.</li>
+</ul>
+
+<h2 id="tree-traversals">Tree Traversals</h2>
+
+<p>There are three common ways to traverse a tree: preorder, inorder, and postorder.</p>
+
+<ul>
+  <li><strong>Preorder</strong>: Visit the root node, then traverse the left subtree, then traverse the right subtree.</li>
+  <li><strong>Inorder</strong>: Traverse the left subtree, visit the root node, then traverse the right subtree.</li>
+  <li><strong>Postorder</strong>: Traverse the left subtree, traverse the right subtree, then visit the root node.</li>
+</ul>
+
+<h2 id="binary-trees">Binary Trees</h2>
+
+<p>A binary tree is a tree in which each node has at most two children. The left child is called the left subtree, and the right child is called the right subtree.</p>
+
+<h2 id="javascript-code-that-demonstrates-binary-trees-works">JavaScript code that demonstrates Binary Trees works</h2>
+<p><strong>You can copy and paste the code into a JavaScript console from the web browser using the following key combination “Ctrl + Shift + i”, then paste the following code.</strong></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Define the Node class to represent the nodes in the tree</span>
+<span class="kd">class</span> <span class="nx">Node</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">right</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Define the BinaryTree class to represent the binary tree</span>
+<span class="kd">class</span> <span class="nx">BinaryTree</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">root</span> <span class="o">=</span> <span class="nx">root</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Define the preorder traversal function</span>
+  <span class="nx">preorder</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Initialize the result array</span>
+    <span class="kd">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="c1">// Define the helper function to traverse the tree</span>
+    <span class="kd">function</span> <span class="nx">traverse</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Add the value of the current node to the result array</span>
+      <span class="nx">result</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+      <span class="c1">// If the left child exists, traverse it</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span> <span class="nx">traverse</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">left</span><span class="p">);</span>
+      <span class="c1">// If the right child exists, traverse it</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">right</span><span class="p">)</span> <span class="nx">traverse</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">right</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">// Start the traversal at the root node</span>
+    <span class="nx">traverse</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">root</span><span class="p">);</span>
+    <span class="c1">// Return the result array</span>
+    <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Create a binary tree with the following structure:</span>
+<span class="c1">//      1</span>
+<span class="c1">//    /   \</span>
+<span class="c1">//   2     3</span>
+<span class="c1">//  / \   / \</span>
+<span class="c1">// 4   5 6   7</span>
+<span class="kd">const</span> <span class="nx">root</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="nx">root</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="nx">root</span><span class="p">.</span><span class="nx">right</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+<span class="nx">root</span><span class="p">.</span><span class="nx">left</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Node</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+<span class="nx">root</span><span class="p">.</span><span class="nx">left</span><span class="p">.</span><span class="nx">right</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Node</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="nx">root</span><span class="p">.</span><span class="nx">right</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Node</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+<span class="nx">root</span><span class="p">.</span><span class="nx">right</span><span class="p">.</span><span class="nx">right</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Node</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">tree</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BinaryTree</span><span class="p">(</span><span class="nx">root</span><span class="p">);</span>
+
+
+
+</code></pre></div></div>
+
+<h5 id="testing-the-code">Testing the code</h5>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Perform the preorder traversal and print the result</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">tree</span><span class="p">.</span><span class="nx">preorder</span><span class="p">());</span> <span class="c1">// [1, 2, 4, 5, 3, 6, 7]</span>
+</code></pre></div></div>]]></content><author><name></name></author><summary type="html"><![CDATA[Part 8: Trees]]></summary></entry><entry><title type="html">Part 7 Non-Comparative Sorting</title><link href="http://localhost:4000/2022/11/20/part-7-non-comparative-sorting.html" rel="alternate" type="text/html" title="Part 7 Non-Comparative Sorting" /><published>2022-11-20T04:12:07-08:00</published><updated>2022-11-20T04:12:07-08:00</updated><id>http://localhost:4000/2022/11/20/part-7-non-comparative-sorting</id><content type="html" xml:base="http://localhost:4000/2022/11/20/part-7-non-comparative-sorting.html"><![CDATA[<h1 id="part-7-non-comparative-sorting">Part 7: Non-Comparative Sorting</h1>
+
+<h2 id="bucket-sort">Bucket Sort</h2>
+
+<p>Bucket sort is an efficient sorting algorithm for arrays of elements that are uniformly distributed over a range. It works by dividing the range of elements into a fixed number of “buckets”, and placing each element into the appropriate bucket based on its value. Once all the elements have been placed into buckets, the buckets can be sorted individually (using another sorting algorithm, such as insertion sort) and then concatenated to produce the sorted array.</p>
+
+<p>Bucket sort has a time complexity of O(n + k), where n is the number of elements in the array and k is the number of buckets. This makes it an efficient sorting algorithm for arrays with a small number of distinct values, as long as those values are uniformly distributed over a range.</p>
+
+<h2 id="radix-sort">Radix Sort</h2>
+
+<p>Radix sort is a non-comparative integer sorting algorithm that sorts elements by the digits that make up their integer values. It works by sorting the elements based on their least significant digit (LSD), and then repeating the process for each subsequent digit, starting with the most significant digit (MSD).</p>
+
+<p>Radix sort has a time complexity of O(n * k), where n is the number of elements in the array and k is the number of digits in the largest element. This makes it an efficient sorting algorithm for arrays of integers with a small number of digits.</p>
+
+<h2 id="javascript-code-that-demonstrates-how-bucket-sort-algorithm--radix-sort-works">JavaScript code that demonstrates how bucket sort algorithm &amp; Radix Sort works</h2>
+<p><strong>You can copy and paste the code into a JavaScript console from the web browser using the following key combination “Ctrl + Shift + i”, then paste the following code.</strong></p>
+
+<h3 id="bucket-sort-1">Bucket Sort</h3>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">bucketSort</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">bucketSize</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// If the array is empty, return it</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+  <span class="c1">// Determine the minimum and maximum values in the array</span>
+  <span class="kd">let</span> <span class="nx">minValue</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="kd">let</span> <span class="nx">maxValue</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">minValue</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">minValue</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nx">maxValue</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">maxValue</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="c1">// Initialize the buckets</span>
+  <span class="kd">let</span> <span class="nx">bucketCount</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nx">maxValue</span> <span class="o">-</span> <span class="nx">minValue</span><span class="p">)</span> <span class="o">/</span> <span class="nx">bucketSize</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">buckets</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">bucketCount</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">buckets</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">buckets</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="p">}</span>
+  <span class="c1">// Place the elements into the appropriate buckets</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">buckets</span><span class="p">[</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">-</span> <span class="nx">minValue</span><span class="p">)</span> <span class="o">/</span> <span class="nx">bucketSize</span><span class="p">)].</span><span class="nx">push</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+  <span class="p">}</span>
+  <span class="c1">// Sort the elements in each bucket</span>
+  <span class="nx">array</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">buckets</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">insertionSort</span><span class="p">(</span><span class="nx">buckets</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+    <span class="nx">array</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">buckets</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">insertionSort</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Iterate over the elements of the array</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Save the current element</span>
+    <span class="kd">const</span> <span class="nx">current</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="c1">// Initialize the variable to store the index of the previous element</span>
+    <span class="kd">let</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="c1">// Shift all the elements that are greater than the current element up by one position</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">array</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nx">current</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">array</span><span class="p">[</span><span class="nx">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="nx">j</span><span class="p">];</span>
+      <span class="nx">j</span><span class="o">--</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// Insert the current element into its sorted position</span>
+    <span class="nx">array</span><span class="p">[</span><span class="nx">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">current</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// Return the sorted array</span>
+  <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+
+</code></pre></div></div>
+
+<h5 id="testing-the-code">Testing the code</h5>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Test the bucketSort function with an example array </span>
+<span class="kd">let</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">];</span> 
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">bucketSort</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span> <span class="c1">// [1, 2, 3, 4, 5]</span>
+</code></pre></div></div>
+
+<h3 id="radix-sort-1">Radix Sort</h3>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">radixSort</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">base</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// If the array is empty, return it</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+  <span class="c1">// Initialize the variables to store the maximum number of digits and the base exponent</span>
+  <span class="kd">let</span> <span class="nx">maxDigits</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">exponent</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="c1">// Determine the maximum number of digits and the base exponent</span>
+  <span class="k">while</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">base</span><span class="p">,</span> <span class="nx">maxDigits</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(...</span><span class="nx">array</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nx">maxDigits</span><span class="o">++</span><span class="p">;</span>
+    <span class="nx">exponent</span> <span class="o">*=</span> <span class="nx">base</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// Initialize the buckets</span>
+  <span class="kd">let</span> <span class="nx">buckets</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">base</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">buckets</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">buckets</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="p">}</span>
+  <span class="c1">// Sort the elements of the array based on each digit</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">maxDigits</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Place the elements into the appropriate buckets</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">digit</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nx">array</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="o">%</span> <span class="nx">exponent</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nx">exponent</span> <span class="o">/</span> <span class="nx">base</span><span class="p">));</span>
+      <span class="nx">buckets</span><span class="p">[</span><span class="nx">digit</span><span class="p">].</span><span class="nx">push</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="nx">j</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="c1">// Concatenate the elements in the buckets into the original array</span>
+    <span class="nx">array</span> <span class="o">=</span> <span class="p">[].</span><span class="nx">concat</span><span class="p">(...</span><span class="nx">buckets</span><span class="p">);</span>
+    <span class="c1">// Reset the buckets</span>
+    <span class="nx">buckets</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">base</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">buckets</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">buckets</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="p">}</span>
+    <span class="c1">// Update the base exponent</span>
+    <span class="nx">exponent</span> <span class="o">/=</span> <span class="nx">base</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// Return the sorted array</span>
+  <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+</code></pre></div></div>
+
+<h5 id="testing-the-code-1">Testing the code</h5>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Test the radixSort function with an example array</span>
+<span class="kd">let</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">];</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">radixSort</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span>
+</code></pre></div></div>]]></content><author><name></name></author><summary type="html"><![CDATA[Part 7: Non-Comparative Sorting]]></summary></entry><entry><title type="html">Part 6 Recursive Sorting Algorithms</title><link href="http://localhost:4000/2022/11/20/part-6-recursive-sorting-algorithms.html" rel="alternate" type="text/html" title="Part 6 Recursive Sorting Algorithms" /><published>2022-11-20T04:12:06-08:00</published><updated>2022-11-20T04:12:06-08:00</updated><id>http://localhost:4000/2022/11/20/part-6-recursive-sorting-algorithms</id><content type="html" xml:base="http://localhost:4000/2022/11/20/part-6-recursive-sorting-algorithms.html"><![CDATA[<h1 id="part-6-recursive-sorting-algorithms">Part 6: Recursive Sorting Algorithms</h1>
+
+<h2 id="merge-sort">Merge Sort</h2>
+
+<p>Merge sort is a sorting algorithm that works by dividing the array into smaller subarrays, sorting them recursively, and then merging the sorted subarrays back together.</p>
+
+<p>To implement merge sort, we can define a <code class="language-plaintext highlighter-rouge">mergeSort</code> function that takes an array as an input and returns the sorted array. The function works as follows:</p>
+
+<ol>
+  <li>If the array has fewer than 2 elements, return it. This is the base case of the recursion.</li>
+  <li>Calculate the midpoint of the array.</li>
+  <li>Divide the array into two subarrays: <code class="language-plaintext highlighter-rouge">left</code> and <code class="language-plaintext highlighter-rouge">right</code>.</li>
+  <li>Recursively sort the left and right subarrays.</li>
+  <li>Merge the left and right subarrays and return the result.</li>
+</ol>
+
+<p>To merge the left and right subarrays, we can define a <code class="language-plaintext highlighter-rouge">merge</code> function that takes two sorted arrays as inputs and returns a single sorted array. The function works as follows:</p>
+
+<ol>
+  <li>Initialize an empty result array.</li>
+  <li>While both subarrays have elements, compare the first elements and append the smaller one to the result array.</li>
+  <li>Append the remaining elements of the left or right subarray to the result array.</li>
+  <li>Return the result array.</li>
+</ol>
+
+<p>Merge sort has a time complexity of O(n * log(n)), making it an efficient sorting algorithm for large arrays. However, it requires additional space to store the subarrays during the recursive calls, which may not be practical for very large arrays.</p>
+
+<h2 id="quick-sort">Quick Sort</h2>
+
+<p>Quick sort is another sorting algorithm that works by dividing the array into smaller subarrays and sorting them recursively. It uses a pivot element to partition the array into two subarrays: one containing elements less than the pivot, and the other containing elements greater than or equal to the pivot.</p>
+
+<p>To implement quick sort, we can define a <code class="language-plaintext highlighter-rouge">quickSort</code> function that takes an array as an input and returns the sorted array. The function works as follows:</p>
+
+<ol>
+  <li>If the array has fewer than 2 elements, return it. This is the base case of the recursion.</li>
+  <li>Choose a pivot element from the array.</li>
+  <li>Partition the array into two subarrays: <code class="language-plaintext highlighter-rouge">left</code> and <code class="language-plaintext highlighter-rouge">right</code>. The <code class="language-plaintext highlighter-rouge">left</code> subarray should contain elements less than the pivot, and the <code class="language-plaintext highlighter-rouge">right</code> subarray should contain elements greater than or equal to the pivot.</li>
+  <li>Recursively sort the <code class="language-plaintext highlighter-rouge">left</code> and <code class="language-plaintext highlighter-rouge">right</code> subarrays.</li>
+  <li>Concatenate the <code class="language-plaintext highlighter-rouge">left</code> subarray, the pivot element, and the <code class="language-plaintext highlighter-rouge">right</code> subarray and return the result.</li>
+</ol>
+
+<p>Quick sort has a time complexity of O(n * log(n)) on average, making it an efficient sorting algorithm for large arrays. However, it has a worst-case time complexity of O(n^2) if the pivot element is chosen poorly, which can make it slower than other sorting algorithms in certain cases.</p>
+
+<h2 id="javascript-code-that-demonstrates-how-the-sorting-algorithms-works">JavaScript code that demonstrates how the Sorting Algorithms works</h2>
+<p><strong>You can copy and paste the code into a JavaScript console from the web browser using the following key combination “Ctrl + Shift + i”, then paste the following code.</strong></p>
+
+<h3 id="merge-sort-1">Merge Sort</h3>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">mergeSort</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// If the array has fewer than 2 elements, return it</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+  <span class="c1">// Calculate the midpoint of the array</span>
+  <span class="kd">let</span> <span class="nx">mid</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+  <span class="c1">// Divide the array into two subarrays</span>
+  <span class="kd">let</span> <span class="nx">left</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">mid</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">right</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">mid</span><span class="p">);</span>
+  <span class="c1">// Recursively sort the left and right subarrays</span>
+  <span class="nx">left</span> <span class="o">=</span> <span class="nx">mergeSort</span><span class="p">(</span><span class="nx">left</span><span class="p">);</span>
+  <span class="nx">right</span> <span class="o">=</span> <span class="nx">mergeSort</span><span class="p">(</span><span class="nx">right</span><span class="p">);</span>
+  <span class="c1">// Merge the left and right subarrays and return the result</span>
+  <span class="k">return</span> <span class="nx">merge</span><span class="p">(</span><span class="nx">left</span><span class="p">,</span> <span class="nx">right</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">merge</span><span class="p">(</span><span class="nx">left</span><span class="p">,</span> <span class="nx">right</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Initialize an empty result array</span>
+  <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="c1">// While both subarrays have elements, compare the first elements and append the smaller one to the result array</span>
+  <span class="k">while</span> <span class="p">(</span><span class="nx">left</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">right</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">left</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">right</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">{</span>
+      <span class="nx">result</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">left</span><span class="p">.</span><span class="nx">shift</span><span class="p">());</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">result</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">right</span><span class="p">.</span><span class="nx">shift</span><span class="p">());</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="c1">// Append the remaining elements of the left or right subarray to the result array</span>
+  <span class="nx">result</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">left</span><span class="p">).</span><span class="nx">concat</span><span class="p">(</span><span class="nx">right</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Test the mergeSort function with an example array</span>
+<span class="kd">let</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">];</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">mergeSort</span><span class="p">(</span><span class="nx">array</span><span class="p">));</span> <span class="c1">// [1, 2, 3, 4, 5]</span>
+</code></pre></div></div>
+
+<h5 id="testing-the-function">Testing the function</h5>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Test the mergeSort function with an example array</span>
+<span class="kd">let</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">];</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">mergeSort</span><span class="p">(</span><span class="nx">array</span><span class="p">));</span> <span class="c1">// [1, 2, 3, 4, 5]</span>
+</code></pre></div></div>
+
+<h3 id="quick-sort-1">Quick Sort</h3>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">quickSort</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// If the array has fewer than 2 elements, return it</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+  <span class="c1">// Choose the first element as the pivot</span>
+  <span class="kd">let</span> <span class="nx">pivot</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="c1">// Partition the array into two subarrays based on the pivot</span>
+  <span class="kd">let</span> <span class="nx">left</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">filter</span><span class="p">(</span><span class="nx">element</span> <span class="o">=&gt;</span> <span class="nx">element</span> <span class="o">&lt;</span> <span class="nx">pivot</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">right</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">filter</span><span class="p">(</span><span class="nx">element</span> <span class="o">=&gt;</span> <span class="nx">element</span> <span class="o">&gt;=</span> <span class="nx">pivot</span><span class="p">);</span>
+  <span class="c1">// Recursively sort the left and right subarrays</span>
+  <span class="nx">left</span> <span class="o">=</span> <span class="nx">quickSort</span><span class="p">(</span><span class="nx">left</span><span class="p">);</span>
+  <span class="nx">right</span> <span class="o">=</span> <span class="nx">quickSort</span><span class="p">(</span><span class="nx">right</span><span class="p">);</span>
+  <span class="c1">// Concatenate the left subarray, the pivot element, and the right subarray and return the result</span>
+  <span class="k">return</span> <span class="nx">left</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">pivot</span><span class="p">).</span><span class="nx">concat</span><span class="p">(</span><span class="nx">right</span><span class="p">);</span>
+<span class="p">}</span>
+
+
+</code></pre></div></div>
+<h5 id="testing-the-code">Testing the code</h5>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Test the quickSort function with an example array</span>
+<span class="kd">let</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">];</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">quickSort</span><span class="p">(</span><span class="nx">array</span><span class="p">));</span> <span class="c1">// [1, 2, 3, 4, 5]</span>
+
+</code></pre></div></div>]]></content><author><name></name></author><summary type="html"><![CDATA[Part 6: Recursive Sorting Algorithms]]></summary></entry><entry><title type="html">Part 5 Binary Search &amp;amp;  Basic Sorting</title><link href="http://localhost:4000/2022/11/20/part-5-binary-search-&-basic-sorting.html" rel="alternate" type="text/html" title="Part 5 Binary Search &amp;amp;  Basic Sorting" /><published>2022-11-20T04:12:05-08:00</published><updated>2022-11-20T04:12:05-08:00</updated><id>http://localhost:4000/2022/11/20/part-5-binary-search-&amp;--basic-sorting</id><content type="html" xml:base="http://localhost:4000/2022/11/20/part-5-binary-search-&amp;-basic-sorting.html"><![CDATA[<h1 id="part-5-binary-search--basic-sorting">Part 5: Binary Search &amp; Basic Sorting</h1>
+<p>Bubble sort</p>
+
+<p>Binary search is an efficient algorithm for finding an element in a sorted array. It works by dividing the array in half and repeatedly comparing the target element to the middle element of the array. If the target element is less than the middle element, the algorithm continues searching the left half of the array. If the target element is greater than the middle element, the algorithm continues searching the right half of the array. This process continues until the target element is found or it is determined that the element is not present in the array.</p>
+
+<h2 id="basic-sorting-algorithms">Basic Sorting Algorithms</h2>
+
+<p>There are several basic algorithms for sorting an array of data values, including:</p>
+
+<ul>
+  <li>Bubble sort: Bubble sort compares adjacent elements in the array and swaps them if they are out of order. This process is repeated until the array is fully sorted.</li>
+  <li>Selection sort: Selection sort selects the smallest element in the array and moves it to the front, then selects the second smallest element and moves it to the second position, and so on.</li>
+  <li>Insertion sort: Insertion sort inserts each element in its proper position as it iterates through the array.</li>
+  <li>Shell sort: Shell sort is a variation of insertion sort that compares elements that are a certain distance apart, rather than just adjacent elements.</li>
+</ul>
+
+<h2 id="example-time-complexities">Example time-complexities</h2>
+
+<p>Time complexity is a measure of how long an algorithm takes to run, based on the size of the input. The time complexity of an algorithm is usually expressed using “Big-O” notation, which gives an upper bound on the number of steps the algorithm takes. For example, the time complexity of bubble sort is O(n^2), which means it takes quadratic time (proportional to the square of the size of the input).</p>
+
+<h2 id="basic-sorting-algorithms-pseudocode">Basic Sorting Algorithms “Pseudocode”</h2>
+<h4 id="binary-search">Binary Search</h4>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">function</span> <span class="n">binarySearch</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span><span class="o">:</span>
+  <span class="cp"># Initialize low and high indices for the search range
+</span>  <span class="n">low</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">high</span> <span class="o">=</span> <span class="n">array</span><span class="p">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span>
+  
+  <span class="cp"># Keep searching as long as the low index is less than or equal to the high index
+</span>  <span class="k">while</span> <span class="n">low</span> <span class="o">&lt;=</span> <span class="n">high</span><span class="o">:</span>
+    <span class="cp"># Calculate the midpoint of the search range
+</span>    <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">low</span> <span class="o">+</span> <span class="n">high</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="cp"># If the target element is equal to the middle element, return the index of the middle element
+</span>    <span class="k">if</span> <span class="n">array</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">==</span> <span class="n">target</span><span class="o">:</span>
+      <span class="k">return</span> <span class="n">mid</span>
+    <span class="cp"># If the target element is less than the middle element, continue searching the left half of the array
+</span>    <span class="n">elif</span> <span class="n">array</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">target</span><span class="o">:</span>
+      <span class="n">low</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="cp"># If the target element is greater than the middle element, continue searching the right half of the array
+</span>    <span class="k">else</span><span class="o">:</span>
+      <span class="n">high</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span>
+  <span class="cp"># If the element is not found, return -1
+</span>  <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+
+</code></pre></div></div>
+
+<h4 id="bubble-sort">Bubble sort</h4>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">function</span> <span class="n">bubbleSort</span><span class="p">(</span><span class="n">array</span><span class="p">)</span><span class="o">:</span>
+  <span class="cp"># Iterate over the array, starting from the first element
+</span>  <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="n">to</span> <span class="n">array</span><span class="p">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">:</span>
+    <span class="cp"># Iterate over the array again, starting from the element after the current one
+</span>    <span class="k">for</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span> <span class="n">to</span> <span class="n">array</span><span class="p">.</span><span class="n">length</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="o">:</span>
+      <span class="cp"># If the current element is greater than the next element, swap them
+</span>      <span class="k">if</span> <span class="n">array</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">array</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">:</span>
+        <span class="n">swap</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">array</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+
+</code></pre></div></div>
+
+<h4 id="selection-sort">Selection Sort</h4>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">function</span> <span class="n">selectionSort</span><span class="p">(</span><span class="n">array</span><span class="p">)</span><span class="o">:</span>
+  <span class="cp"># Iterate over the array, starting from the first element
+</span>  <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="n">to</span> <span class="n">array</span><span class="p">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">2</span><span class="o">:</span>
+    <span class="cp"># Initialize the index of the minimum element as the current one
+</span>    <span class="n">minIndex</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="cp"># Iterate over the remaining elements of the array
+</span>    <span class="k">for</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="n">to</span> <span class="n">array</span><span class="p">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">:</span>
+      <span class="cp"># If the current element is less than the minimum element, update the index of the minimum element
+</span>      <span class="k">if</span> <span class="n">array</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">array</span><span class="p">[</span><span class="n">minIndex</span><span class="p">]</span><span class="o">:</span>
+        <span class="n">minIndex</span> <span class="o">=</span> <span class="n">j</span>
+    <span class="cp"># Swap the current element with the minimum element
+</span>    <span class="n">swap</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">array</span><span class="p">[</span><span class="n">minIndex</span><span class="p">])</span>
+
+</code></pre></div></div>
+
+<h4 id="insertion-sort">Insertion sort</h4>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">function</span> <span class="n">insertionSort</span><span class="p">(</span><span class="n">array</span><span class="p">)</span><span class="o">:</span>
+  <span class="cp"># Iterate over the array, starting from the second element
+</span>  <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span> <span class="n">to</span> <span class="n">array</span><span class="p">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">:</span>
+    <span class="cp"># Store the current element in a temporary variable
+</span>    <span class="n">temp</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="cp"># Initialize a variable to track the current position in the array
+</span>    <span class="n">j</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="cp"># Keep moving the current element backwards in the array as long as the element at the current position
+</span>    <span class="cp"># is greater than the temporary element
+</span>    <span class="k">while</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="n">and</span> <span class="n">array</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">temp</span><span class="o">:</span>
+      <span class="cp"># Shift the element at the current position backwards by one position
+</span>      <span class="n">array</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+      <span class="cp"># Update the current position
+</span>      <span class="n">j</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="cp"># Insert the temporary element at the current position
+</span>    <span class="n">array</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span>
+
+</code></pre></div></div>
+
+<h4 id="shell-sort">Shell Sort</h4>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">function</span> <span class="n">shellSort</span><span class="p">(</span><span class="n">array</span><span class="p">)</span><span class="o">:</span>
+  <span class="cp"># Initialize the gap as half the length of the array
+</span>  <span class="n">gap</span> <span class="o">=</span> <span class="n">array</span><span class="p">.</span><span class="n">length</span> <span class="o">/</span> <span class="mi">2</span>
+  <span class="cp"># Keep sorting as long as the gap is greater than zero
+</span>  <span class="k">while</span> <span class="n">gap</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">:</span>
+    <span class="cp"># Iterate over the array, starting from the element at the gap index
+</span>    <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="n">gap</span> <span class="n">to</span> <span class="n">array</span><span class="p">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">:</span>
+      <span class="cp"># Store the current element in a temporary variable
+</span>      <span class="n">temp</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+      <span class="cp"># Initialize a variable to track the current position in the array
+</span>      <span class="n">j</span> <span class="o">=</span> <span class="n">i</span>
+      <span class="cp"># Keep moving the current element backwards in the array as long as the gap is greater than zero
+</span>      <span class="cp"># and the element at the current position is greater than the temporary element
+</span>      <span class="k">while</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="n">gap</span> <span class="n">and</span> <span class="n">array</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">gap</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">temp</span><span class="o">:</span>
+        <span class="cp"># Shift the element at the current position backwards by the gap distance
+</span>        <span class="n">array</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">gap</span><span class="p">]</span>
+        <span class="cp"># Update the current position
+</span>        <span class="n">j</span> <span class="o">-=</span> <span class="n">gap</span>
+      <span class="cp"># Insert the temporary element at the current position
+</span>      <span class="n">array</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span>
+    <span class="cp"># Decrease the gap by half
+</span>    <span class="n">gap</span> <span class="o">/=</span> <span class="mi">2</span>
+
+</code></pre></div></div>]]></content><author><name></name></author><summary type="html"><![CDATA[Part 5: Binary Search &amp; Basic Sorting Bubble sort]]></summary></entry><entry><title type="html">Part 4 Queues &amp;amp; Stacks in Practice</title><link href="http://localhost:4000/2022/11/20/part-4-queues-&-stacks-in-practice.html" rel="alternate" type="text/html" title="Part 4 Queues &amp;amp; Stacks in Practice" /><published>2022-11-20T04:12:04-08:00</published><updated>2022-11-20T04:12:04-08:00</updated><id>http://localhost:4000/2022/11/20/part-4-queues-&amp;-stacks-in-practice</id><content type="html" xml:base="http://localhost:4000/2022/11/20/part-4-queues-&amp;-stacks-in-practice.html"><![CDATA[<h1 id="part-4-queues--stacks-in-practice">Part 4: Queues &amp; Stacks in Practice</h1>
+
+<p>In Part 2, we learned about abstract data types such as queues and stacks. In Part 4, we will learn about some practical applications of these data structures.</p>
+
+<ul>
+  <li>
+    <p><strong>Prefix, Postfix, and Infix Notation</strong>: These are different ways of writing mathematical expressions that involve operators (such as +, -, *, and /). In prefix notation, the operator is written before the operands (e.g. “+ 3 4”). In postfix notation, the operator is written after the operands (e.g. “3 4 +”). In infix notation, the operator is written between the operands (e.g. “3 + 4”).</p>
+  </li>
+  <li>
+    <p><strong>Shunting Yard Algorithm</strong>: The Shunting Yard Algorithm is a method for converting mathematical expressions from infix notation to postfix notation. This is useful because it allows the expression to be evaluated using a stack-based algorithm, which can be implemented more efficiently than an algorithm that uses a queue.</p>
+  </li>
+</ul>
+
+<p>It’s important to understand these concepts because they provide the foundation for understanding how to implement and use stacks and queues in practical applications.</p>
+
+<h2 id="javascript-code-that-demonstrates-how-the-shunting-yard-algorithm-works">JavaScript code that demonstrates how the Shunting Yard Algorithm works</h2>
+
+<p><strong>You can copy and paste the code into a JavaScript console from the web browser using the following key combination “Ctrl + Shift + i”, then paste the following code.</strong></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">toPostfix</span><span class="p">(</span><span class="nx">infix</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Initialize empty stacks for operators and operands</span>
+  <span class="kd">const</span> <span class="nx">operators</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="kd">const</span> <span class="nx">operands</span> <span class="o">=</span> <span class="p">[];</span>
+
+  <span class="c1">// Split the infix expression into tokens</span>
+  <span class="kd">const</span> <span class="nx">tokens</span> <span class="o">=</span> <span class="nx">infix</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/</span><span class="se">\s</span><span class="sr">+/</span><span class="p">);</span>
+
+  <span class="c1">// Iterate over the tokens</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">const</span> <span class="nx">token</span> <span class="k">of</span> <span class="nx">tokens</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// If the token is an operand, push it onto the operands stack</span>
+    <span class="k">if</span> <span class="p">(</span><span class="sr">/</span><span class="se">\d</span><span class="sr">/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">token</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">operands</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">token</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">// If the token is an operator,</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="sr">/</span><span class="se">[</span><span class="sr">+-</span><span class="se">/</span><span class="sr">*</span><span class="se">]</span><span class="sr">/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">token</span><span class="p">))</span> <span class="p">{</span>
+      <span class="c1">// While the top of the operators stack has a higher or equal precedence,</span>
+      <span class="c1">// pop the top two operands and the top operator and push the result</span>
+      <span class="c1">// back onto the operands stack</span>
+      <span class="k">while</span> <span class="p">(</span><span class="nx">operators</span><span class="p">.</span><span class="nx">length</span> <span class="o">&amp;&amp;</span> <span class="nx">hasPrecedence</span><span class="p">(</span><span class="nx">token</span><span class="p">,</span> <span class="nx">operators</span><span class="p">[</span><span class="nx">operators</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]))</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">op2</span> <span class="o">=</span> <span class="nx">operands</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+        <span class="kd">const</span> <span class="nx">op1</span> <span class="o">=</span> <span class="nx">operands</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+        <span class="kd">const</span> <span class="nx">op</span> <span class="o">=</span> <span class="nx">operators</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+        <span class="nx">operands</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">op1</span><span class="p">}</span><span class="s2"> </span><span class="p">${</span><span class="nx">op2</span><span class="p">}</span><span class="s2"> </span><span class="p">${</span><span class="nx">op</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="c1">// Push the token onto the operators stack</span>
+      <span class="nx">operators</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">token</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// While there are still operators on the stack,</span>
+  <span class="c1">// pop the top two operands and the top operator and push the result</span>
+  <span class="c1">// back onto the operands stack</span>
+  <span class="k">while</span> <span class="p">(</span><span class="nx">operators</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">op2</span> <span class="o">=</span> <span class="nx">operands</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+    <span class="kd">const</span> <span class="nx">op1</span> <span class="o">=</span> <span class="nx">operands</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+    <span class="kd">const</span> <span class="nx">op</span> <span class="o">=</span> <span class="nx">operators</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+    <span class="nx">operands</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">op1</span><span class="p">}</span><span class="s2"> </span><span class="p">${</span><span class="nx">op2</span><span class="p">}</span><span class="s2"> </span><span class="p">${</span><span class="nx">op</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Return the top of the operands stack as the postfix expression</span>
+  <span class="k">return</span> <span class="nx">operands</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">hasPrecedence</span><span class="p">(</span><span class="nx">op1</span><span class="p">,</span> <span class="nx">op2</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// If either operator is * or /, return true</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">op1</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">*</span><span class="dl">"</span> <span class="o">||</span> <span class="nx">op1</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">/</span><span class="dl">"</span><span class="p">)</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">op2</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">*</span><span class="dl">"</span> <span class="o">||</span> <span class="nx">op2</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">/</span><span class="dl">"</span><span class="p">)</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="c1">// Otherwise, return false</span>
+  <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h4 id="testing-the-funtion">Testing the funtion</h4>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">toPostfix</span><span class="p">(</span><span class="dl">"</span><span class="s2">4 * 5 / 2 + 3</span><span class="dl">"</span><span class="p">));</span> <span class="c1">// "4 5 * 2 / 3 +"</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">toPostfix</span><span class="p">(</span><span class="dl">"</span><span class="s2">2 * 3 / 4 + 5 * 6</span><span class="dl">"</span><span class="p">));</span> <span class="c1">// "2 3 * 4 / 5 6 * +"</span>
+
+</code></pre></div></div>]]></content><author><name></name></author><summary type="html"><![CDATA[Part 4: Queues &amp; Stacks in Practice]]></summary></entry></feed>

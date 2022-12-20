@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Part 9 Heaps &amp; Priority Queues | csc130csus.ivanbautista.dev</title>
+<meta name="generator" content="Jekyll v4.3.1" />
+<meta property="og:title" content="Part 9 Heaps &amp; Priority Queues" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Part 9: Heaps &amp; Priority Queues" />
+<meta property="og:description" content="Part 9: Heaps &amp; Priority Queues" />
+<link rel="canonical" href="http://localhost:4000/2022/11/20/part-9-heaps-&-priority-queues.html" />
+<meta property="og:url" content="http://localhost:4000/2022/11/20/part-9-heaps-&-priority-queues.html" />
+<meta property="og:site_name" content="csc130csus.ivanbautista.dev" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-11-20T04:12:09-08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Part 9 Heaps &amp; Priority Queues" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-20T04:12:09-08:00","datePublished":"2022-11-20T04:12:09-08:00","description":"Part 9: Heaps &amp; Priority Queues","headline":"Part 9 Heaps &amp; Priority Queues","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2022/11/20/part-9-heaps-&-priority-queues.html"},"url":"http://localhost:4000/2022/11/20/part-9-heaps-&-priority-queues.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="csc130csus.ivanbautista.dev" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">csc130csus.ivanbautista.dev</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">Notes on Algorithms and Data Structures</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Part 9 Heaps &amp; Priority Queues</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2022-11-20T04:12:09-08:00" itemprop="datePublished">Nov 20, 2022
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h1 id="part-9-heaps--priority-queues">Part 9: Heaps &amp; Priority Queues</h1>
+
+<h2 id="heaps">Heaps</h2>
+
+<p>A heap is a complete binary tree in which each node has a value that is greater than or equal to its children. There are two types of heaps: min-heaps and max-heaps. In a min-heap, the value of each node is less than or equal to its children, while in a max-heap, the value of each node is greater than or equal to its children.</p>
+
+<h2 id="priority-queues">Priority Queues</h2>
+
+<p>A priority queue is a data structure that allows each element to have a priority, so that elements with higher priorities are dequeued before elements with lower priorities. Heaps are often used to implement priority queues, because the heap property allows for fast insertion and removal of elements.</p>
+
+<h2 id="inserting-and-removing-elements">Inserting and Removing Elements</h2>
+
+<p>To insert a new element into a heap, it is added to the end of the heap and then “upheaped” until it reaches its correct position. To remove the top element (either the minimum or maximum element, depending on the type of heap), it is replaced with the last element in the heap and then “downheaped” until it reaches its correct position.</p>
+
+<p>Heaps can also be implemented using an array, where the children of the element at index <code class="language-plaintext highlighter-rouge">i</code> are at indices <code class="language-plaintext highlighter-rouge">2i+1</code> and <code class="language-plaintext highlighter-rouge">2i+2</code>. In this case, the “upheap” and “downheap” operations can be implemented using array element swaps.</p>
+
+<h2 id="javascript-code-that-demonstrates-how-min-heap-works">JavaScript code that demonstrates how Min Heap works</h2>
+<p><strong>You can copy and paste the code into a JavaScript console from the web browser using the following key combination “Ctrl + Shift + i”, then paste the following code.</strong></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">MinHeap</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">heap</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="p">}</span>
+
+  <span class="c1">// method to insert a new element into the heap</span>
+  <span class="nx">insert</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// add the new element to the end of the heap</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+
+    <span class="c1">// upheap the new element until it reaches its correct position</span>
+    <span class="kd">let</span> <span class="nx">currentIndex</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">currentIndex</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">parentIndex</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nx">currentIndex</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">currentIndex</span><span class="p">]</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">parentIndex</span><span class="p">])</span> <span class="p">{</span>
+        <span class="c1">// if the new element is less than its parent, swap them</span>
+        <span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">currentIndex</span><span class="p">],</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">parentIndex</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">parentIndex</span><span class="p">],</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">currentIndex</span><span class="p">]];</span>
+        <span class="nx">currentIndex</span> <span class="o">=</span> <span class="nx">parentIndex</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// if the new element is greater than or equal to its parent, it is in the correct position</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// method to remove the minimum element from the heap</span>
+  <span class="nx">extractMin</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// if the heap is empty, return null</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+
+    <span class="c1">// if the heap has only one element, return it and set the heap to be empty</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+   
+<span class="c1">// otherwise, remove the minimum element and downheap the new root element until it reaches its correct position</span>
+    <span class="kd">const</span> <span class="nx">min</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+    <span class="kd">let</span> <span class="nx">currentIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">leftIndex</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="nx">currentIndex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="kd">let</span> <span class="nx">rightIndex</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="nx">currentIndex</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+      <span class="kd">let</span> <span class="nx">leftChild</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">leftIndex</span><span class="p">];</span>
+      <span class="kd">let</span> <span class="nx">rightChild</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">rightIndex</span><span class="p">];</span>
+      <span class="kd">let</span> <span class="nx">minIndex</span> <span class="o">=</span> <span class="nx">currentIndex</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">leftChild</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="o">&amp;&amp;</span> <span class="nx">leftChild</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">minIndex</span><span class="p">])</span> <span class="p">{</span>
+        <span class="nx">minIndex</span> <span class="o">=</span> <span class="nx">leftIndex</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">rightChild</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="o">&amp;&amp;</span> <span class="nx">rightChild</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">minIndex</span><span class="p">])</span> <span class="p">{</span>
+        <span class="nx">minIndex</span> <span class="o">=</span> <span class="nx">rightIndex</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">minIndex</span> <span class="o">!==</span> <span class="nx">currentIndex</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">currentIndex</span><span class="p">],</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">minIndex</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">minIndex</span><span class="p">],</span> <span class="k">this</span><span class="p">.</span><span class="nx">heap</span><span class="p">[</span><span class="nx">currentIndex</span><span class="p">]];</span>
+        <span class="nx">currentIndex</span> <span class="o">=</span> <span class="nx">minIndex</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">min</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+
+
+</code></pre></div></div>
+
+<h5 id="testing-the-code">Testing the code</h5>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// create a new min-heap</span>
+<span class="kd">const</span> <span class="nx">heap</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MinHeap</span><span class="p">();</span>
+
+<span class="c1">// insert some values into the heap</span>
+<span class="nx">heap</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="nx">heap</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+<span class="nx">heap</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+<span class="nx">heap</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="nx">heap</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+<span class="nx">heap</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span>
+<span class="nx">heap</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span>
+
+<span class="c1">// extract the minimum element from the heap</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">heap</span><span class="p">.</span><span class="nx">extractMin</span><span class="p">());</span> <span class="c1">// should print 1</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">heap</span><span class="p">.</span><span class="nx">extractMin</span><span class="p">());</span> <span class="c1">// should print 3</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">heap</span><span class="p">.</span><span class="nx">extractMin</span><span class="p">());</span> <span class="c1">// should print 4</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">heap</span><span class="p">.</span><span class="nx">extractMin</span><span class="p">());</span> <span class="c1">// should print 5</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">heap</span><span class="p">.</span><span class="nx">extractMin</span><span class="p">());</span> <span class="c1">// should print 7</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">heap</span><span class="p">.</span><span class="nx">extractMin</span><span class="p">());</span> <span class="c1">// should print 8</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">heap</span><span class="p">.</span><span class="nx">extractMin</span><span class="p">());</span> <span class="c1">// should print 9</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">heap</span><span class="p">.</span><span class="nx">extractMin</span><span class="p">());</span> <span class="c1">// should print null (heap is empty)</span>
+
+</code></pre></div></div>
+
+  </div><a class="u-url" href="/2022/11/20/part-9-heaps-&-priority-queues.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">csc130csus.ivanbautista.dev</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">csc130csus.ivanbautista.dev</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ivanbautista"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ivanbautista</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Here, you will find a collection of notes on algorithms and data structures, covering topics such as analysis of algorithms, abstract data types, recursion, queues and stacks, binary search and sorting, recursive sorting algorithms, non-comparative sorting, trees, heaps and priority queues, binary search trees, balanced trees, hashing, and graphs. I hope you find these notes useful and informative.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

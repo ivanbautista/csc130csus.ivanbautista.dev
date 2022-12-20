@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Part 7 Non-Comparative Sorting | csc130csus.ivanbautista.dev</title>
+<meta name="generator" content="Jekyll v4.3.1" />
+<meta property="og:title" content="Part 7 Non-Comparative Sorting" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Part 7: Non-Comparative Sorting" />
+<meta property="og:description" content="Part 7: Non-Comparative Sorting" />
+<link rel="canonical" href="http://localhost:4000/2022/11/20/part-7-non-comparative-sorting.html" />
+<meta property="og:url" content="http://localhost:4000/2022/11/20/part-7-non-comparative-sorting.html" />
+<meta property="og:site_name" content="csc130csus.ivanbautista.dev" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-11-20T04:12:07-08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Part 7 Non-Comparative Sorting" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-20T04:12:07-08:00","datePublished":"2022-11-20T04:12:07-08:00","description":"Part 7: Non-Comparative Sorting","headline":"Part 7 Non-Comparative Sorting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2022/11/20/part-7-non-comparative-sorting.html"},"url":"http://localhost:4000/2022/11/20/part-7-non-comparative-sorting.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="csc130csus.ivanbautista.dev" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">csc130csus.ivanbautista.dev</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">Notes on Algorithms and Data Structures</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Part 7 Non-Comparative Sorting</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2022-11-20T04:12:07-08:00" itemprop="datePublished">Nov 20, 2022
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h1 id="part-7-non-comparative-sorting">Part 7: Non-Comparative Sorting</h1>
+
+<h2 id="bucket-sort">Bucket Sort</h2>
+
+<p>Bucket sort is an efficient sorting algorithm for arrays of elements that are uniformly distributed over a range. It works by dividing the range of elements into a fixed number of “buckets”, and placing each element into the appropriate bucket based on its value. Once all the elements have been placed into buckets, the buckets can be sorted individually (using another sorting algorithm, such as insertion sort) and then concatenated to produce the sorted array.</p>
+
+<p>Bucket sort has a time complexity of O(n + k), where n is the number of elements in the array and k is the number of buckets. This makes it an efficient sorting algorithm for arrays with a small number of distinct values, as long as those values are uniformly distributed over a range.</p>
+
+<h2 id="radix-sort">Radix Sort</h2>
+
+<p>Radix sort is a non-comparative integer sorting algorithm that sorts elements by the digits that make up their integer values. It works by sorting the elements based on their least significant digit (LSD), and then repeating the process for each subsequent digit, starting with the most significant digit (MSD).</p>
+
+<p>Radix sort has a time complexity of O(n * k), where n is the number of elements in the array and k is the number of digits in the largest element. This makes it an efficient sorting algorithm for arrays of integers with a small number of digits.</p>
+
+<h2 id="javascript-code-that-demonstrates-how-bucket-sort-algorithm--radix-sort-works">JavaScript code that demonstrates how bucket sort algorithm &amp; Radix Sort works</h2>
+<p><strong>You can copy and paste the code into a JavaScript console from the web browser using the following key combination “Ctrl + Shift + i”, then paste the following code.</strong></p>
+
+<h3 id="bucket-sort-1">Bucket Sort</h3>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">bucketSort</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">bucketSize</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// If the array is empty, return it</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+  <span class="c1">// Determine the minimum and maximum values in the array</span>
+  <span class="kd">let</span> <span class="nx">minValue</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="kd">let</span> <span class="nx">maxValue</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">minValue</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">minValue</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nx">maxValue</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">maxValue</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="c1">// Initialize the buckets</span>
+  <span class="kd">let</span> <span class="nx">bucketCount</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nx">maxValue</span> <span class="o">-</span> <span class="nx">minValue</span><span class="p">)</span> <span class="o">/</span> <span class="nx">bucketSize</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">buckets</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">bucketCount</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">buckets</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">buckets</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="p">}</span>
+  <span class="c1">// Place the elements into the appropriate buckets</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">buckets</span><span class="p">[</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">-</span> <span class="nx">minValue</span><span class="p">)</span> <span class="o">/</span> <span class="nx">bucketSize</span><span class="p">)].</span><span class="nx">push</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+  <span class="p">}</span>
+  <span class="c1">// Sort the elements in each bucket</span>
+  <span class="nx">array</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">buckets</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">insertionSort</span><span class="p">(</span><span class="nx">buckets</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+    <span class="nx">array</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">buckets</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">insertionSort</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Iterate over the elements of the array</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Save the current element</span>
+    <span class="kd">const</span> <span class="nx">current</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="c1">// Initialize the variable to store the index of the previous element</span>
+    <span class="kd">let</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="c1">// Shift all the elements that are greater than the current element up by one position</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">array</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nx">current</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">array</span><span class="p">[</span><span class="nx">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="nx">j</span><span class="p">];</span>
+      <span class="nx">j</span><span class="o">--</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// Insert the current element into its sorted position</span>
+    <span class="nx">array</span><span class="p">[</span><span class="nx">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">current</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// Return the sorted array</span>
+  <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+
+</code></pre></div></div>
+
+<h5 id="testing-the-code">Testing the code</h5>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Test the bucketSort function with an example array </span>
+<span class="kd">let</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">];</span> 
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">bucketSort</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span> <span class="c1">// [1, 2, 3, 4, 5]</span>
+</code></pre></div></div>
+
+<h3 id="radix-sort-1">Radix Sort</h3>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">radixSort</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">base</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// If the array is empty, return it</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+  <span class="c1">// Initialize the variables to store the maximum number of digits and the base exponent</span>
+  <span class="kd">let</span> <span class="nx">maxDigits</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">exponent</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="c1">// Determine the maximum number of digits and the base exponent</span>
+  <span class="k">while</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">base</span><span class="p">,</span> <span class="nx">maxDigits</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(...</span><span class="nx">array</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nx">maxDigits</span><span class="o">++</span><span class="p">;</span>
+    <span class="nx">exponent</span> <span class="o">*=</span> <span class="nx">base</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// Initialize the buckets</span>
+  <span class="kd">let</span> <span class="nx">buckets</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">base</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">buckets</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">buckets</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="p">}</span>
+  <span class="c1">// Sort the elements of the array based on each digit</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">maxDigits</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Place the elements into the appropriate buckets</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">digit</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nx">array</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="o">%</span> <span class="nx">exponent</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nx">exponent</span> <span class="o">/</span> <span class="nx">base</span><span class="p">));</span>
+      <span class="nx">buckets</span><span class="p">[</span><span class="nx">digit</span><span class="p">].</span><span class="nx">push</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="nx">j</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="c1">// Concatenate the elements in the buckets into the original array</span>
+    <span class="nx">array</span> <span class="o">=</span> <span class="p">[].</span><span class="nx">concat</span><span class="p">(...</span><span class="nx">buckets</span><span class="p">);</span>
+    <span class="c1">// Reset the buckets</span>
+    <span class="nx">buckets</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">base</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">buckets</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">buckets</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="p">}</span>
+    <span class="c1">// Update the base exponent</span>
+    <span class="nx">exponent</span> <span class="o">/=</span> <span class="nx">base</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// Return the sorted array</span>
+  <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+</code></pre></div></div>
+
+<h5 id="testing-the-code-1">Testing the code</h5>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Test the radixSort function with an example array</span>
+<span class="kd">let</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">];</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">radixSort</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span>
+</code></pre></div></div>
+
+  </div><a class="u-url" href="/2022/11/20/part-7-non-comparative-sorting.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">csc130csus.ivanbautista.dev</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">csc130csus.ivanbautista.dev</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ivanbautista"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ivanbautista</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Here, you will find a collection of notes on algorithms and data structures, covering topics such as analysis of algorithms, abstract data types, recursion, queues and stacks, binary search and sorting, recursive sorting algorithms, non-comparative sorting, trees, heaps and priority queues, binary search trees, balanced trees, hashing, and graphs. I hope you find these notes useful and informative.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
